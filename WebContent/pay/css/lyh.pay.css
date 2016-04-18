@@ -1,0 +1,20 @@
+.card{
+	margin: 0px;
+}
+
+.pay-orderno{
+	text-align: right;
+	font-size: 16px;
+}
+
+.pay-orderamount{
+	color: #f15353;
+}
+
+h3{
+	margin-left: 20px;
+}
+
+.pay-platform{
+	margin-right: 15px;
+}

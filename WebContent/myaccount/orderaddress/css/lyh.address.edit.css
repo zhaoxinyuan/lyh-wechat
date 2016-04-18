@@ -1,0 +1,37 @@
+.card{
+	margin : 0px;
+}
+
+.address-user-name {
+	font-size: 18px;
+	font-weight: bolder;
+}
+
+.address-user-phone {
+	font-size: 16px;
+	text-align: right;
+}
+
+.icon-default-address {
+	padding-top: 15px;
+	padding-bottom: 15px;
+	font-size: 20px;
+	color: #0894ec;
+}
+
+.address-default-panel{
+	background-color: #eee;
+}
+
+.label-switch{
+	float: right;
+}
+
+.bar{
+	background-color: #eee;
+}
+
+.list-block{
+	margin: 0px;
+	margin-bottom: .75rem;
+}

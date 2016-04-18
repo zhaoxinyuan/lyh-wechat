@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ftc.wechat.user.dao.WechatUserEvaluateDao" >
+  <resultMap id="BaseResultMap" type="com.ftc.wechat.user.pojo.WechatUserEvaluate" >
+    <id column="evaluate_id" property="evaluateId" jdbcType="INTEGER" />
+    <result column="evaluate_userid" property="evaluateUserid" jdbcType="INTEGER" />
+    <result column="evaluate_content" property="evaluateContent" jdbcType="VARCHAR" />
+    <result column="evaluate_star" property="evaluateStar" jdbcType="INTEGER" />
+    <result column="evaluate_date" property="evaluateDate" jdbcType="VARCHAR" />
+    <result column="evaluate_productid" property="evaluateProductid" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    evaluate_id, evaluate_userid, evaluate_content, evaluate_star, evaluate_date, evaluate_productid
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from wechat_user_evaluate
+    where evaluate_id = #{evaluateId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from wechat_user_evaluate
+    where evaluate_id = #{evaluateId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.ftc.wechat.user.pojo.WechatUserEvaluate" >
+    insert into wechat_user_evaluate (evaluate_id, evaluate_userid, evaluate_content, 
+      evaluate_star, evaluate_date, evaluate_productid
+      )
+    values (#{evaluateId,jdbcType=INTEGER}, #{evaluateUserid,jdbcType=INTEGER}, #{evaluateContent,jdbcType=VARCHAR}, 
+      #{evaluateStar,jdbcType=INTEGER}, #{evaluateDate,jdbcType=VARCHAR}, #{evaluateProductid,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.ftc.wechat.user.pojo.WechatUserEvaluate" >
+    insert into wechat_user_evaluate
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="evaluateId != null" >
+        evaluate_id,
+      </if>
+      <if test="evaluateUserid != null" >
+        evaluate_userid,
+      </if>
+      <if test="evaluateContent != null" >
+        evaluate_content,
+      </if>
+      <if test="evaluateStar != null" >
+        evaluate_star,
+      </if>
+      <if test="evaluateDate != null" >
+        evaluate_date,
+      </if>
+      <if test="evaluateProductid != null" >
+        evaluate_productid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="evaluateId != null" >
+        #{evaluateId,jdbcType=INTEGER},
+      </if>
+      <if test="evaluateUserid != null" >
+        #{evaluateUserid,jdbcType=INTEGER},
+      </if>
+      <if test="evaluateContent != null" >
+        #{evaluateContent,jdbcType=VARCHAR},
+      </if>
+      <if test="evaluateStar != null" >
+        #{evaluateStar,jdbcType=INTEGER},
+      </if>
+      <if test="evaluateDate != null" >
+        #{evaluateDate,jdbcType=VARCHAR},
+      </if>
+      <if test="evaluateProductid != null" >
+        #{evaluateProductid,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ftc.wechat.user.pojo.WechatUserEvaluate" >
+    update wechat_user_evaluate
+    <set >
+      <if test="evaluateUserid != null" >
+        evaluate_userid = #{evaluateUserid,jdbcType=INTEGER},
+      </if>
+      <if test="evaluateContent != null" >
+        evaluate_content = #{evaluateContent,jdbcType=VARCHAR},
+      </if>
+      <if test="evaluateStar != null" >
+        evaluate_star = #{evaluateStar,jdbcType=INTEGER},
+      </if>
+      <if test="evaluateDate != null" >
+        evaluate_date = #{evaluateDate,jdbcType=VARCHAR},
+      </if>
+      <if test="evaluateProductid != null" >
+        evaluate_productid = #{evaluateProductid,jdbcType=INTEGER},
+      </if>
+    </set>
+    where evaluate_id = #{evaluateId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ftc.wechat.user.pojo.WechatUserEvaluate" >
+    update wechat_user_evaluate
+    set evaluate_userid = #{evaluateUserid,jdbcType=INTEGER},
+      evaluate_content = #{evaluateContent,jdbcType=VARCHAR},
+      evaluate_star = #{evaluateStar,jdbcType=INTEGER},
+      evaluate_date = #{evaluateDate,jdbcType=VARCHAR},
+      evaluate_productid = #{evaluateProductid,jdbcType=INTEGER}
+    where evaluate_id = #{evaluateId,jdbcType=INTEGER}
+  </update>
+</mapper>

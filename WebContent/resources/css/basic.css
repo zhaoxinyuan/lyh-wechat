@@ -1,0 +1,176 @@
+@CHARSET "UTF-8";
+
+body {
+	font-size: 14px;
+}
+
+.text-left {
+	text-align: left;
+}
+
+.text-center {
+	text-align: center;
+}
+
+.text-right {
+	text-align: right;
+}
+
+.text-date {
+	color: #bbb;
+}
+
+.badge-wrap {
+	position: relative;
+	text-align: center;
+}
+
+.badge-cornernum {
+	position: absolute;
+    top: .1rem;
+    left: 55%;
+    z-index: 100;
+    height: .8rem;
+    min-width: .8rem;
+    padding: 0 .2rem;
+    font-size: .6rem;
+    line-height: .8rem;
+    color: white;
+    vertical-align: top;
+    background: red;
+    border-radius: .5rem;
+    margin-left: .1rem;
+}
+
+.fillet {
+	moz-border-radius: 15px;
+	-webkit-border-radius: 15px;
+	border-radius: 15px;
+}
+
+.has-error{
+	color: #f15353;
+}
+
+.has-error > .item-input > input,.has-error > .item-input > textarea{
+	color: #f15353;
+}
+
+.a-danger {
+	color: #f15353;
+}
+
+.row {
+	width: 100%;
+}
+
+hr {
+	border-top: 1px solid #e1e1e1;
+}
+
+.border-t {
+	border-top: 1px solid #e1e1e1;
+}
+
+.border {
+	border: 1px solid #e1e1e1;
+}
+
+.border-b {
+	border-bottom: 1px solid #e1e1e1;
+}
+
+.border-tb {
+	border-top: #e1e1e1 1px solid;
+	border-bottom: #bbb 13px solid;
+	background-image: none;
+}
+
+.border-l {
+	border-left: 1px solid #e1e1e1;
+}
+
+.border-r {
+	border-right: 1px solid #e1e1e1;
+}
+
+.border-radius {
+	border: 1px solid #e1e1e1;
+	border-radius: 4px;
+}
+
+.nowrap-flex {
+	display: -webkit-box;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	-webkit-box-orient: vertical;
+	-webkit-line-clamp: 1;
+	-webkit-box-flex: 1;
+	height: inherit;
+}
+
+.form-icon {
+	width: 21.75px;
+	text-align: center;
+}
+
+.fa-default{
+	color: #929292;
+}
+
+.fa-blue{
+	color: #0894ec;
+}
+
+.bar-tab~.content {
+    overflow-x: hidden;
+}
+
+.label-list{
+	margin: 0 10px;
+}
+
+.label-list .label {
+    margin: 0 10px 10px 0;
+}
+.label-list .label {
+    display: inline-block;
+    position: relative;
+    line-height: 30px;
+    height: 30px;
+    padding: 0 10px;
+    border: 1px solid #cacccd;
+    border-radius: 12px;
+}
+.label-list label {
+    cursor: default;
+}
+
+.label-list .label-selected{
+	border-color: #f6383a;
+    color: #f6383a;
+}
+
+.buttons-tab .button{
+	font-size: .7rem;
+	height: 1.7rem;
+    line-height: 1.7rem;
+}
+
+.card{
+	box-shadow: 0 .0rem .0rem rgba(0,0,0,.3);
+}
+
+.hide{
+	display: none;
+}
+
+.modular-title-line{
+	display: inline-block;
+    width: 30%;
+    height: .375rem;
+}
+
+.modular-title{
+	display: inline-block;
+}

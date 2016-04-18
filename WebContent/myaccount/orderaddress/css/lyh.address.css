@@ -1,0 +1,39 @@
+.card {
+	margin: 0px;
+}
+
+.address-user-name {
+	font-size: 16px;
+}
+
+.address-user-phone {
+	font-size: 14px;
+	text-align: right;
+}
+
+.icon-default-address {
+	padding-top: 15px;
+	padding-bottom: 15px;
+	font-size: .85rem;
+	color: #0894ec;
+}
+
+.order-address-default {
+	text-align: center;
+	background: #f74c31;
+	color: #fff;
+	font-size: 14px;
+	line-height: 16px;
+	-webkit-border-radius: 8px;
+	padding: 0 10px;
+	margin-right: 5px;
+}
+
+.address-user-detail{
+	color: #aaa;
+	margin-top: 5px;
+}
+
+.bar{
+	background-color: #eee;
+}

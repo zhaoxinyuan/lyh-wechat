@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ftc.wechat.order.dao.WechatOrderStatusDao" >
+  <resultMap id="BaseResultMap" type="com.ftc.wechat.order.pojo.WechatOrderStatus" >
+    <id column="status_id" property="statusId" jdbcType="INTEGER" />
+    <result column="status_name" property="statusName" jdbcType="VARCHAR" />
+    <result column="status_code" property="statusCode" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    status_id, status_name,status_code
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from wechat_order_status
+    where status_id = #{statusId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from wechat_order_status
+    where status_id = #{statusId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.ftc.wechat.order.pojo.WechatOrderStatus" >
+    insert into wechat_order_status (status_id, status_name,status_code)
+    values (#{statusId,jdbcType=INTEGER}, #{statusName,jdbcType=VARCHAR}, #{statusCode,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ftc.wechat.order.pojo.WechatOrderStatus" >
+    insert into wechat_order_status
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="statusId != null" >
+        status_id,
+      </if>
+      <if test="statusName != null" >
+        status_name,
+      </if>
+      <if test="statusCode != null" >
+        status_code,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="statusId != null" >
+        #{statusId,jdbcType=INTEGER},
+      </if>
+      <if test="statusName != null" >
+        #{statusName,jdbcType=VARCHAR},
+      </if>
+      <if test="statusCode != null" >
+        #{statusCode,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ftc.wechat.order.pojo.WechatOrderStatus" >
+    update wechat_order_status
+    <set >
+      <if test="statusName != null" >
+        status_name = #{statusName,jdbcType=VARCHAR},
+      </if>
+      <if test="statusCode != null" >
+        status_code = #{statusCode,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where status_id = #{statusId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ftc.wechat.order.pojo.WechatOrderStatus" >
+    update wechat_order_status
+    set status_name = #{statusName,jdbcType=VARCHAR},
+    	status_code = #{statusCode,jdbcType=VARCHAR}
+    where status_id = #{statusId,jdbcType=INTEGER}
+  </update>
+  
+  <select id="selectByCode" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from wechat_order_status
+    where status_code = #{statusCode,jdbcType=VARCHAR}
+  </select>
+  
+</mapper>

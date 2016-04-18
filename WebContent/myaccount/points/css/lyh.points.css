@@ -1,0 +1,42 @@
+.points-amount-panel{
+	background: #fff;
+    box-shadow: 0 .05rem .1rem rgba(0,0,0,.3);
+    border-radius: .1rem;
+    font-size: .7rem;
+    padding-left: .75em;
+    padding-right: .75em;
+    padding-bottom: .5rem;
+}
+
+.points-amount-value{
+	color: #4cd964;
+	font-size: 32px;
+}
+
+.points-detail-title,.points-detail-date{
+	margin: 0px;
+}
+
+.points-detail-date,.points-amount-title{
+	font-size: 12px;
+	color: #aaa;
+}
+
+.points-detail-income,.points-detail-expenses{
+	font-size: 24px;
+}
+
+.points-detail-income{
+	color: #f15353;
+}
+
+.points-detail-expenses{
+	color: #00EE00;
+}
+
+.points-detail-null{
+	text-align: center;
+	margin-top: 50px;
+	color: #bbb;
+	padding: 15px;
+}

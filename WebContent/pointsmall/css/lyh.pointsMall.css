@@ -1,0 +1,75 @@
+.swiper-container{
+	height: 100%;
+	padding-bottom: 0px;
+}
+
+.mall-index{
+	background-image: url("../img/jfsy.jpg");
+	width: 100%;
+	background-size: 100% 100%;
+}
+
+.list-block {
+	margin: 0px;
+	margin-bottom: 10px;;
+}
+
+.list-block .item-title {
+	white-space: inherit;
+}
+
+.mall-user-points-title {
+	font-size: 14px;
+	display: inline-block;
+}
+
+.mall-user-points-value {
+	font-size: 16px;
+	color: #4cd964;
+	margin-left: 10px;
+	display: inline-block;
+}
+
+.mall-points-item-img {
+	max-height: 100px;
+	max-width: 100%;
+}
+
+.mall-points-item-name {
+	font-size: .75rem;
+}
+
+.mall-points-item-desc {
+	font-size: .5rem;
+	height: 1.60rem;
+	-webkit-line-clamp: 2;
+	color: #5e646e;
+}
+
+.mall-points-item-value,.mall-points-item-btn{
+	margin-top: 5px;
+}
+
+.mall-points-item-value{
+	font-size: .75rem;
+	color: #f74c31;
+}
+
+.test{
+text-align : center;
+width: 100%;
+color : #fff;
+opacity: .8;
+position:relative;
+animation:myfirst 2s infinite linear;
+table-layout: fixed;
+position: absolute;bottom: 0;
+}
+
+
+@keyframes myfirst
+{
+	50%  {opacity: .8;bottom:20px;}
+	75%  {opacity: .6;bottom:30px;}
+	100% {opacity: .4;bottom:40px;}
+}

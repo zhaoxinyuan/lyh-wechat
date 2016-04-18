@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ftc.wechat.product.dao.WechatProductDao" >
+  <resultMap id="BaseResultMap" type="com.ftc.wechat.product.pojo.WechatProduct" >
+    <id column="product_id" property="productId" jdbcType="INTEGER" />
+    <result column="product_name" property="productName" jdbcType="VARCHAR" />
+    <result column="product_describe" property="productDescribe" jdbcType="VARCHAR" />
+    <result column="product_price" property="productPrice" jdbcType="DOUBLE" />
+    <result column="product_purchaseprice" property="productPurchasePrice" jdbcType="DOUBLE" />
+    <result column="product_mallprice" property="productMallPrice" jdbcType="DOUBLE" />
+    <result column="product_expressprice" property="productExpressPrice" jdbcType="DOUBLE" />
+    <result column="product_imageurl" property="productImageurl" jdbcType="VARCHAR" />
+    <result column="product_detailurl" property="productDetailurl" jdbcType="VARCHAR" />
+    <result column="product_updatetime" property="productUpdatetime" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <resultMap id="InfoResultMap" type="com.ftc.wechat.product.pojo.WechatProduct" >
+    <id column="product_id" property="productId" jdbcType="INTEGER" />
+    <result column="product_name" property="productName" jdbcType="VARCHAR" />
+    <result column="product_describe" property="productDescribe" jdbcType="VARCHAR" />
+    <result column="product_price" property="productPrice" jdbcType="DOUBLE" />
+    <result column="product_purchaseprice" property="productPurchasePrice" jdbcType="DOUBLE" />
+    <result column="product_mallprice" property="productMallPrice" jdbcType="DOUBLE" />
+    <result column="product_expressprice" property="productExpressPrice" jdbcType="DOUBLE" />
+    <result column="product_imageurl" property="productImageurl" jdbcType="VARCHAR" />
+    <result column="product_detailurl" property="productDetailurl" jdbcType="VARCHAR" />
+    <result column="product_updatetime" property="productUpdatetime" jdbcType="VARCHAR" />
+    <collection column="image_productid" property="productImage" ofType="com.ftc.wechat.product.pojo.WechatProductImage">
+  		<id column="image_id" property="imageId" jdbcType="INTEGER" />
+    	<result column="image_type" property="imageType" jdbcType="INTEGER" />
+    	<result column="image_url" property="imageUrl" jdbcType="VARCHAR" />
+    	<result column="image_productid" property="imageProductId" jdbcType="INTEGER" />
+  	</collection>
+  	<collection column="spec_productid" property="productSpecs" ofType="com.ftc.wechat.product.pojo.WechatProductSpec">
+  		<id column="spec_id" property="specId" jdbcType="INTEGER" />
+    	<result column="spec_title" property="specTitle" jdbcType="VARCHAR" />
+    	<result column="spec_name" property="specName" jdbcType="VARCHAR" />
+    	<result column="spec_productid" property="specProductid" jdbcType="INTEGER" />
+  	</collection>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    product_id, product_name, product_describe, product_price, product_purchaseprice, product_expressprice,
+    product_imageurl, product_detailurl,product_updatetime,product_mallprice
+  </sql>
+  <select id="findProduct" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from wechat_product
+    where product_up = 1
+    order by product_sort
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from wechat_product 
+    where product_id = #{productId,jdbcType=INTEGER}
+    and product_up = 1
+  </select>
+  
+  <select id="findProductInfo" resultMap="InfoResultMap" parameterType="java.lang.Integer" >
+    SELECT 
+    	p.product_id, 
+    	p.product_name, 
+    	p.product_describe, 
+    	p.product_price, 
+    	p.product_mallprice,
+    	p.product_expressprice,
+    	p.product_imageurl,
+    	image.*,
+    	spec.*
+	FROM wechat_product p
+	LEFT JOIN wechat_product_image image on image.image_productid = p.product_id
+	LEFT JOIN wechat_product_spec spec on spec.spec_productid = p.product_id  
+	WHERE p.product_up = 1
+	AND   p.product_id = #{productId,jdbcType=INTEGER}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from wechat_product
+    where product_id = #{productId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.ftc.wechat.product.pojo.WechatProduct" >
+    insert into wechat_product (product_id, product_name, product_describe, 
+      product_price, product_purchaseprice, product_imageurl,product_detailurl)
+    values (#{productId,jdbcType=INTEGER}, #{productName,jdbcType=VARCHAR}, #{productDescribe,jdbcType=VARCHAR}, 
+      #{productPrice,jdbcType=DOUBLE}, #{productPurchasePrice,jdbcType=DOUBLE}, #{productImageurl,jdbcType=VARCHAR}, 
+      #{productEvaluateid,jdbcType=INTEGER}, #{productDetailurl,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ftc.wechat.product.pojo.WechatProduct" >
+    insert into wechat_product
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="productId != null" >
+        product_id,
+      </if>
+      <if test="productName != null" >
+        product_name,
+      </if>
+      <if test="productDescribe != null" >
+        product_describe,
+      </if>
+      <if test="productPrice != null" >
+        product_price,
+      </if>
+      <if test="productPurchasePrice != null" >
+        product_purchaseprice,
+      </if>
+      <if test="productImageurl != null" >
+        product_imageurl,
+      </if>
+      <if test="productDetailurl != null" >
+        product_detailurl,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="productId != null" >
+        #{productId,jdbcType=INTEGER},
+      </if>
+      <if test="productName != null" >
+        #{productName,jdbcType=VARCHAR},
+      </if>
+      <if test="productDescribe != null" >
+        #{productDescribe,jdbcType=VARCHAR},
+      </if>
+      <if test="productPrice != null" >
+        #{productPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="productPurchasePrice != null" >
+        #{productPurchasePrice,jdbcType=DOUBLE},
+      </if>
+      <if test="productImageurl != null" >
+        #{productImageurl,jdbcType=VARCHAR},
+      </if>
+      <if test="productEvaluateid != null" >
+        #{productEvaluateid,jdbcType=INTEGER},
+      </if>
+      <if test="productDetailurl != null" >
+        #{productDetailurl,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ftc.wechat.product.pojo.WechatProduct" >
+    update wechat_product
+    <set >
+      <if test="productName != null" >
+        product_name = #{productName,jdbcType=VARCHAR},
+      </if>
+      <if test="productDescribe != null" >
+        product_describe = #{productDescribe,jdbcType=VARCHAR},
+      </if>
+      <if test="productPrice != null" >
+        product_price = #{productPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="productPurchasePrice != null" >
+        product_purchaseprice = #{productPurchasePrice,jdbcType=DOUBLE},
+      </if>
+      <if test="productImageurl != null" >
+        product_imageurl = #{productImageurl,jdbcType=VARCHAR},
+      </if>
+      <if test="productDetailurl != null" >
+        product_detailurl = #{productDetailurl,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where product_id = #{productId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ftc.wechat.product.pojo.WechatProduct" >
+    update wechat_product
+    set product_name = #{productName,jdbcType=VARCHAR},
+      product_describe = #{productDescribe,jdbcType=VARCHAR},
+      product_price = #{productPrice,jdbcType=DOUBLE},
+      product_purchaseprice = #{productPurchasePrice,jdbcType=DOUBLE},
+      product_imageurl = #{productImageurl,jdbcType=VARCHAR},
+      product_detailurl = #{productDetailurl,jdbcType=VARCHAR}
+    where product_id = #{productId,jdbcType=INTEGER}
+  </update>
+  
+</mapper>

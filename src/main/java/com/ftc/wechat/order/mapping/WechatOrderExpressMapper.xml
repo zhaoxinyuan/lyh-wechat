@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ftc.wechat.order.dao.WechatOrderExpressDao" >
+  <resultMap id="BaseResultMap" type="com.ftc.wechat.order.pojo.WechatOrderExpress" >
+    <id column="express_id" property="expressId" jdbcType="INTEGER" />
+    <result column="express_no" property="expressNo" jdbcType="VARCHAR" />
+    <result column="express_companyname" property="expressCompanyname" jdbcType="VARCHAR" />
+    <result column="express_amount" property="expressAmount" jdbcType="DOUBLE" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    express_id, express_no, express_companyname, express_amount
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from wechat_order_express
+    where express_id = #{expressId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from wechat_order_express
+    where express_id = #{expressId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.ftc.wechat.order.pojo.WechatOrderExpress" >
+    insert into wechat_order_express (express_id, express_no, express_companyname, 
+      express_amount)
+    values (#{expressId,jdbcType=INTEGER}, #{expressNo,jdbcType=VARCHAR}, #{expressCompanyname,jdbcType=VARCHAR}, 
+      #{expressAmount,jdbcType=DOUBLE})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ftc.wechat.order.pojo.WechatOrderExpress" >
+    insert into wechat_order_express
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="expressId != null" >
+        express_id,
+      </if>
+      <if test="expressNo != null" >
+        express_no,
+      </if>
+      <if test="expressCompanyname != null" >
+        express_companyname,
+      </if>
+      <if test="expressAmount != null" >
+        express_amount,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="expressId != null" >
+        #{expressId,jdbcType=INTEGER},
+      </if>
+      <if test="expressNo != null" >
+        #{expressNo,jdbcType=VARCHAR},
+      </if>
+      <if test="expressCompanyname != null" >
+        #{expressCompanyname,jdbcType=VARCHAR},
+      </if>
+      <if test="expressAmount != null" >
+        #{expressAmount,jdbcType=DOUBLE},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ftc.wechat.order.pojo.WechatOrderExpress" >
+    update wechat_order_express
+    <set >
+      <if test="expressNo != null" >
+        express_no = #{expressNo,jdbcType=VARCHAR},
+      </if>
+      <if test="expressCompanyname != null" >
+        express_companyname = #{expressCompanyname,jdbcType=VARCHAR},
+      </if>
+      <if test="expressAmount != null" >
+        express_amount = #{expressAmount,jdbcType=DOUBLE},
+      </if>
+    </set>
+    where express_id = #{expressId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ftc.wechat.order.pojo.WechatOrderExpress" >
+    update wechat_order_express
+    set express_no = #{expressNo,jdbcType=VARCHAR},
+      express_companyname = #{expressCompanyname,jdbcType=VARCHAR},
+      express_amount = #{expressAmount,jdbcType=DOUBLE}
+    where express_id = #{expressId,jdbcType=INTEGER}
+  </update>
+</mapper>

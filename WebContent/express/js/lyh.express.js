@@ -1,0 +1,5 @@
+var product = {
+		init: function(){
+			
+		}
+};

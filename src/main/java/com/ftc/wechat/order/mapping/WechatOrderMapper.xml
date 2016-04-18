@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ftc.wechat.order.dao.WechatOrderDao" >
+  <resultMap id="BaseResultMap" type="com.ftc.wechat.order.pojo.WechatOrder" >
+    <id column="order_id" property="orderId" jdbcType="INTEGER" />
+    <result column="order_no" property="orderNo" jdbcType="VARCHAR" />
+    <result column="order_userid" property="orderUserid" jdbcType="INTEGER" />
+    <result column="order_productid" property="orderProductid" jdbcType="INTEGER" />
+    <result column="order_product_qty" property="orderProductQty" jdbcType="INTEGER" />
+    <result column="order_product_amt" property="orderProductAmt" jdbcType="DOUBLE" />
+    <result column="order_date" property="orderDate" jdbcType="VARCHAR" />
+    <result column="order_addressid" property="orderAddressid" jdbcType="INTEGER" />
+    <result column="order_statusid" property="orderStatusid" jdbcType="INTEGER" />
+    <result column="order_payid" property="orderPayid" jdbcType="INTEGER" />
+    <result column="order_expressid" property="orderExpressid" jdbcType="INTEGER" />
+  </resultMap>
+  
+  <resultMap id="orderListResultMap" type="com.ftc.wechat.order.pojo.WechatOrder">
+  	<id column="order_id" property="orderId" jdbcType="INTEGER" />
+  	<result column="order_no" property="orderNo" jdbcType="VARCHAR" />
+  	<result column="order_date" property="orderDate" jdbcType="VARCHAR" />
+  	<result column="order_userid" property="orderUserid" jdbcType="INTEGER" />
+  	<result column="order_product_qty" property="orderProductQty" jdbcType="INTEGER" />
+    <result column="order_product_amt" property="orderProductAmt" jdbcType="DOUBLE" />
+    <result column="order_user_wechatid" property="orderUserWechatid" jdbcType="VARCHAR" />
+    <result column="order_product_spec" property="orderProductSpec" jdbcType="VARCHAR" />
+  	<association column="order_statusid" property="orderStatus" javaType="com.ftc.wechat.order.pojo.WechatOrderStatus">
+  		<id column="status_id" property="statusId" jdbcType="INTEGER" />
+    	<result column="status_name" property="statusName" jdbcType="VARCHAR" />
+    	<result column="status_code" property="statusCode" jdbcType="VARCHAR" />
+  	</association>
+  	<association column="order_expressid" property="orderExpress" javaType="com.ftc.wechat.order.pojo.WechatOrderExpress">
+  		<id column="express_id" property="expressId" jdbcType="INTEGER" />
+    	<result column="express_no" property="expressNo" jdbcType="VARCHAR" />
+    	<result column="express_companyname" property="expressCompanyname" jdbcType="VARCHAR" />
+    	<result column="express_amount" property="expressAmount" jdbcType="DOUBLE" />
+  	</association>
+  	<association column="order_productid" property="orderProduct" javaType="com.ftc.wechat.product.pojo.WechatProduct">
+  		<id column="product_id" property="productId" jdbcType="INTEGER" />
+    	<result column="product_name" property="productName" jdbcType="VARCHAR" />
+    	<result column="product_describe" property="productDescribe" jdbcType="VARCHAR" />
+    	<result column="product_price" property="productPrice" jdbcType="DOUBLE" />
+    	<result column="product_purchase_price" property="productPurchasePrice" jdbcType="DOUBLE" />
+    	<result column="product_expressprice" property="productExpressPrice" jdbcType="DOUBLE" />
+    	<result column="product_imageurl" property="productImageurl" jdbcType="VARCHAR" />
+    	<result column="product_detailurl" property="productDetailurl" jdbcType="VARCHAR" />
+  	</association>
+  </resultMap>
+  
+  <resultMap id="serialResultMap" type="com.ftc.wechat.order.pojo.SerialNumber" >
+    <result column="serial" property="serial" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    order_id,order_no, order_userid, order_productid, order_product_qty, order_product_amt, order_date, 
+    order_addressid, order_statusid, order_payid, order_expressid
+  </sql>
+    
+  <select id="overtimeOrder" resultMap="BaseResultMap">
+  	SELECT b.order_id FROM wechat_order_express a
+	LEFT JOIN wechat_order b ON b.order_expressid = a.express_id
+	LEFT JOIN wechat_order_status c ON b.order_statusid = c.status_id
+	WHERE DATEDIFF(NOW(),express_date) >= 7 
+	AND c.status_code = 'status_04'
+  </select>
+  
+    <select id="selectSerial" resultMap="serialResultMap" >
+    select 
+    (count(1) + 1) as serial
+    from wechat_order
+    where date_format(order_date,'%Y-%m-%d') = date_format(now(),'%Y-%m-%d')
+  </select>
+  <select id="selectByOrderNo" resultMap="orderListResultMap" parameterType="java.lang.String" >
+    select 	orders.order_id,
+    		orders.order_no,
+    		orders.order_product_amt,
+    		user.user_wechatid as order_user_wechatid,
+    		order_userid,
+    		orders.order_product_spec,
+    		product.*,
+    		express.*
+    	   
+    from wechat_order orders
+    left join wechat_product product on orders.order_productid = product.product_id
+    left join wechat_order_express express on orders.order_expressid = express.express_id
+    left join wechat_user user on orders.order_userid = user.user_id
+    where orders.order_no = #{orderNo,jdbcType=VARCHAR}
+  </select>
+  <select id="selectOrderByUser" resultMap="orderListResultMap" parameterType="com.ftc.wechat.order.pojo.WechatOrder" >
+    select 	orders.order_id,
+    	 	orders.order_no,
+    	 	orders.order_date,
+    	 	orders.order_product_qty,
+    	 	orders.order_product_amt,
+    	 	orders.order_product_spec,
+       		product.*,
+    	 	express.*,
+       		status.*
+	from wechat_order orders
+	left join wechat_product product on orders.order_productid = product.product_id
+	left join wechat_order_express express on orders.order_expressid = express.express_id
+	left join wechat_order_status status on orders.order_statusid = status.status_id
+    where orders.order_userid = #{orderUserid,jdbcType=INTEGER}
+    <if test="orderStatusCode != null" >
+        and   status.status_code = #{orderStatusCode,jdbcType=INTEGER}
+    </if>
+    order by orders.order_id desc
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from wechat_order
+    where order_id = #{orderId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from wechat_order
+    where order_id = #{orderId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.ftc.wechat.order.pojo.WechatOrder" >
+    insert into wechat_order (order_id,order_no, order_userid, order_productid, 
+      order_product_qty, order_product_amt, order_date, 
+      order_addressid, order_statusid, order_payid, 
+      order_expressid)
+    values (#{orderId,jdbcType=INTEGER},#{orderNo,jdbcType=VARCHAR}, #{orderUserid,jdbcType=INTEGER}, #{orderProductid,jdbcType=INTEGER}, 
+      #{orderProductQty,jdbcType=INTEGER}, #{orderProductAmt,jdbcType=DOUBLE}, #{orderDate,jdbcType=VARCHAR}, 
+      #{orderAddressid,jdbcType=INTEGER}, #{orderStatusid,jdbcType=INTEGER}, #{orderPayid,jdbcType=INTEGER}, 
+      #{orderExpressid,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ftc.wechat.order.pojo.WechatOrder" >
+    insert into wechat_order
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="orderId != null" >
+        order_id,
+      </if>
+      <if test="orderUserid != null" >
+        order_no,
+      </if>
+      <if test="orderUserid != null" >
+        order_userid,
+      </if>     
+       <if test="orderProductid != null" >
+        order_productid,
+      </if>
+      <if test="orderProductName != null" >
+        order_product_name,
+      </if>
+      <if test="orderProductSpec != null" >
+        order_product_spec,
+      </if>
+      <if test="orderProductQty != null" >
+        order_product_qty,
+      </if>
+      <if test="orderProductAmt != null" >
+        order_product_amt,
+      </if>
+      <if test="orderDate != null" >
+        order_date,
+      </if>
+      <if test="orderAddressid != null" >
+        order_addressid,
+      </if>
+      <if test="orderAddressProvince != null" >
+        order_address_province,
+      </if>
+      <if test="orderAddressCity != null" >
+        order_address_city,
+      </if>
+      <if test="orderAddressCounty != null" >
+        order_address_county,
+      </if>
+      <if test="orderAddressStreet != null" >
+        order_address_street,
+      </if>
+      <if test="orderAddressName != null" >
+        order_address_name,
+      </if>
+      <if test="orderAddressMobile != null" >
+        order_address_mobile,
+      </if>
+      <if test="orderStatusid != null" >
+       order_statusid,
+      </if>
+      <if test="orderPayid != null" >
+        order_payid,
+      </if>
+      <if test="orderExpressid != null" >
+        order_expressid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="orderId != null" >
+        #{orderId,jdbcType=INTEGER},
+      </if>
+       <if test="orderNo != null" >
+        #{orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="orderUserid != null" >
+        #{orderUserid,jdbcType=INTEGER},
+      </if>
+      <if test="orderProductid != null" >
+        #{orderProductid,jdbcType=INTEGER},
+      </if>
+      <if test="orderProductName != null" >
+        #{orderProductName,jdbcType=VARCHAR},
+      </if>
+      <if test="orderProductSpec != null" >
+        #{orderProductSpec,jdbcType=VARCHAR},
+      </if>
+      <if test="orderProductQty != null" >
+        #{orderProductQty,jdbcType=INTEGER},
+      </if>
+      <if test="orderProductAmt != null" >
+        #{orderProductAmt,jdbcType=DOUBLE},
+      </if>
+      <if test="orderDate != null" >
+        #{orderDate,jdbcType=VARCHAR},
+      </if>
+      <if test="orderAddressid != null" >
+        #{orderAddressid,jdbcType=INTEGER},
+      </if>
+      <if test="orderAddressProvince != null" >
+        #{orderAddressProvince,jdbcType=VARCHAR},
+      </if>
+      <if test="orderAddressCity != null" >
+        #{orderAddressCity,jdbcType=VARCHAR},
+      </if>
+      <if test="orderAddressCounty != null" >
+        #{orderAddressCounty,jdbcType=VARCHAR},
+      </if>
+       <if test="orderAddressStreet != null" >
+         #{orderAddressStreet,jdbcType=VARCHAR},
+      </if>
+      <if test="orderAddressName != null" >
+        #{orderAddressName,jdbcType=VARCHAR},
+      </if>
+      <if test="orderAddressMobile != null" >
+        #{orderAddressMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="orderStatusid != null" >
+        #{orderStatusid,jdbcType=INTEGER},
+      </if>
+      <if test="orderPayid != null" >
+        #{orderPayid,jdbcType=INTEGER},
+      </if>
+      <if test="orderExpressid != null" >
+        #{orderExpressid,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ftc.wechat.order.pojo.WechatOrder" >
+    update wechat_order
+    <set >
+      <if test="orderUserid != null" >
+        order_userid = #{orderUserid,jdbcType=INTEGER},
+      </if>
+      <if test="orderProductid != null" >
+        order_no = #{orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="orderProductid != null" >
+        order_productid = #{orderProductid,jdbcType=INTEGER},
+      </if>
+      <if test="orderProductQty != null" >
+        order_product_qty = #{orderProductQty,jdbcType=INTEGER},
+      </if>
+      <if test="orderProductAmt != null" >
+        order_product_amt = #{orderProductAmt,jdbcType=DOUBLE},
+      </if>
+      <if test="orderDate != null" >
+        order_date = #{orderDate,jdbcType=VARCHAR},
+      </if>
+      <if test="orderAddressid != null" >
+        order_addressid = #{orderAddressid,jdbcType=INTEGER},
+      </if>
+      <if test="orderStatusid != null" >
+        order_statusid = #{orderStatusid,jdbcType=INTEGER},
+      </if>
+      <if test="orderPayid != null" >
+        order_payid = #{orderPayid,jdbcType=INTEGER},
+      </if>
+      <if test="orderExpressid != null" >
+        order_expressid = #{orderExpressid,jdbcType=INTEGER},
+      </if>
+    </set>
+    where order_id = #{orderId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ftc.wechat.order.pojo.WechatOrder" >
+    update wechat_order
+    set order_userid = #{orderUserid,jdbcType=INTEGER},
+      order_no = #{orderNo,jdbcType=VARCHAR},
+      order_productid = #{orderProductid,jdbcType=INTEGER},
+      order_product_qty = #{orderProductQty,jdbcType=INTEGER},
+      order_product_amt = #{orderProductAmt,jdbcType=DOUBLE},
+      order_date = #{orderDate,jdbcType=VARCHAR},
+      order_addressid = #{orderAddressid,jdbcType=INTEGER},
+      order_statusid = #{orderStatusid,jdbcType=INTEGER},
+      order_payid = #{orderPayid,jdbcType=INTEGER},
+      order_expressid = #{orderExpressid,jdbcType=INTEGER}
+    where order_id = #{orderId,jdbcType=INTEGER}
+  </update>
+</mapper>

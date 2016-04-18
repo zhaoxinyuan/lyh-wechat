@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ftc.wechat.user.dao.WechatUserAddressDao" >
+  <resultMap id="BaseResultMap" type="com.ftc.wechat.user.pojo.WechatUserAddress" >
+    <id column="address_id" property="addressId" jdbcType="INTEGER" />
+    <result column="address_provincename" property="addressProvincename" jdbcType="VARCHAR" />
+    <result column="address_provincecode" property="addressProvincecode" jdbcType="VARCHAR" />
+    <result column="address_cityname" property="addressCityname" jdbcType="VARCHAR" />
+    <result column="address_citycode" property="addressCitycode" jdbcType="VARCHAR" />
+    <result column="address_countyname" property="addressCountyname" jdbcType="VARCHAR" />
+    <result column="address_countycode" property="addressCountycode" jdbcType="VARCHAR" />
+    <result column="address_street" property="addressStreet" jdbcType="VARCHAR" />
+    <result column="address_name" property="addressName" jdbcType="VARCHAR" />
+    <result column="address_mobile" property="addressMobile" jdbcType="VARCHAR" />
+    <result column="address_default" property="addressDefault" jdbcType="INTEGER" />
+    <result column="address_userid" property="addressUserid" jdbcType="INTEGER" />
+    <result column="address_post" property="addressPost" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    address_id, address_provincename, address_provincecode, address_cityname, address_citycode, 
+    address_countyname, address_countycode, address_street, address_name, address_mobile, 
+    address_default, address_userid,address_post
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from wechat_user_address
+    where address_id = #{addressId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from wechat_user_address
+    where address_id = #{addressId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.ftc.wechat.user.pojo.WechatUserAddress" >
+    insert into wechat_user_address (address_id, address_provincename, address_provincecode, 
+      address_cityname, address_citycode, address_countyname, 
+      address_countycode, address_street, address_name, 
+      address_mobile, address_default, address_userid,address_post
+      )
+    values (#{addressId,jdbcType=INTEGER}, #{addressProvincename,jdbcType=VARCHAR}, #{addressProvincecode,jdbcType=VARCHAR}, 
+      #{addressCityname,jdbcType=VARCHAR}, #{addressCitycode,jdbcType=VARCHAR}, #{addressCountyname,jdbcType=VARCHAR}, 
+      #{addressCountycode,jdbcType=VARCHAR}, #{addressStreet,jdbcType=VARCHAR}, #{addressName,jdbcType=VARCHAR}, 
+      #{addressMobile,jdbcType=VARCHAR}, #{addressDefault,jdbcType=INTEGER}, #{addressUserid,jdbcType=INTEGER}, #{addressPost,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.ftc.wechat.user.pojo.WechatUserAddress" >
+    insert into wechat_user_address
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="addressId != null" >
+        address_id,
+      </if>
+      <if test="addressProvincename != null" >
+        address_provincename,
+      </if>
+      <if test="addressProvincecode != null" >
+        address_provincecode,
+      </if>
+      <if test="addressCityname != null" >
+        address_cityname,
+      </if>
+      <if test="addressCitycode != null" >
+        address_citycode,
+      </if>
+      <if test="addressCountyname != null" >
+        address_countyname,
+      </if>
+      <if test="addressCountycode != null" >
+        address_countycode,
+      </if>
+      <if test="addressStreet != null" >
+        address_street,
+      </if>
+      <if test="addressName != null" >
+        address_name,
+      </if>
+      <if test="addressMobile != null" >
+        address_mobile,
+      </if>
+      <if test="addressDefault != null" >
+        address_default,
+      </if>
+      <if test="addressUserid != null" >
+        address_userid,
+      </if>
+      <if test="addressPost != null" >
+        address_post,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="addressId != null" >
+        #{addressId,jdbcType=INTEGER},
+      </if>
+      <if test="addressProvincename != null" >
+        #{addressProvincename,jdbcType=VARCHAR},
+      </if>
+      <if test="addressProvincecode != null" >
+        #{addressProvincecode,jdbcType=VARCHAR},
+      </if>
+      <if test="addressCityname != null" >
+        #{addressCityname,jdbcType=VARCHAR},
+      </if>
+      <if test="addressCitycode != null" >
+        #{addressCitycode,jdbcType=VARCHAR},
+      </if>
+      <if test="addressCountyname != null" >
+        #{addressCountyname,jdbcType=VARCHAR},
+      </if>
+      <if test="addressCountycode != null" >
+        #{addressCountycode,jdbcType=VARCHAR},
+      </if>
+      <if test="addressStreet != null" >
+        #{addressStreet,jdbcType=VARCHAR},
+      </if>
+      <if test="addressName != null" >
+        #{addressName,jdbcType=VARCHAR},
+      </if>
+      <if test="addressMobile != null" >
+        #{addressMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="addressDefault != null" >
+        #{addressDefault,jdbcType=INTEGER},
+      </if>
+      <if test="addressUserid != null" >
+        #{addressUserid,jdbcType=INTEGER},
+      </if>
+       <if test="addressPost != null" >
+        #{addressPost,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ftc.wechat.user.pojo.WechatUserAddress" >
+    update wechat_user_address
+    <set >
+      <if test="addressProvincename != null" >
+        address_provincename = #{addressProvincename,jdbcType=VARCHAR},
+      </if>
+      <if test="addressProvincecode != null" >
+        address_provincecode = #{addressProvincecode,jdbcType=VARCHAR},
+      </if>
+      <if test="addressCityname != null" >
+        address_cityname = #{addressCityname,jdbcType=VARCHAR},
+      </if>
+      <if test="addressCitycode != null" >
+        address_citycode = #{addressCitycode,jdbcType=VARCHAR},
+      </if>
+      <if test="addressCountyname != null" >
+        address_countyname = #{addressCountyname,jdbcType=VARCHAR},
+      </if>
+      <if test="addressCountycode != null" >
+        address_countycode = #{addressCountycode,jdbcType=VARCHAR},
+      </if>
+      <if test="addressStreet != null" >
+        address_street = #{addressStreet,jdbcType=VARCHAR},
+      </if>
+      <if test="addressName != null" >
+        address_name = #{addressName,jdbcType=VARCHAR},
+      </if>
+      <if test="addressMobile != null" >
+        address_mobile = #{addressMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="addressDefault != null" >
+        address_default = #{addressDefault,jdbcType=INTEGER},
+      </if>
+      <if test="addressUserid != null" >
+        address_userid = #{addressUserid,jdbcType=INTEGER},
+      </if>
+      <if test="addressPost != null" >
+        address_post = #{addressPost,jdbcType=INTEGER},
+      </if>
+    </set>
+    where address_id = #{addressId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ftc.wechat.user.pojo.WechatUserAddress" >
+    update wechat_user_address
+    set address_provincename = #{addressProvincename,jdbcType=VARCHAR},
+      address_provincecode = #{addressProvincecode,jdbcType=VARCHAR},
+      address_cityname = #{addressCityname,jdbcType=VARCHAR},
+      address_citycode = #{addressCitycode,jdbcType=VARCHAR},
+      address_countyname = #{addressCountyname,jdbcType=VARCHAR},
+      address_countycode = #{addressCountycode,jdbcType=VARCHAR},
+      address_street = #{addressStreet,jdbcType=VARCHAR},
+      address_name = #{addressName,jdbcType=VARCHAR},
+      address_mobile = #{addressMobile,jdbcType=VARCHAR},
+      address_default = #{addressDefault,jdbcType=INTEGER},
+      address_userid = #{addressUserid,jdbcType=INTEGER},
+      address_post = #{addressPost,jdbcType=INTEGER}
+    where address_id = #{addressId,jdbcType=INTEGER}
+  </update>
+  
+  <update id="updateDefaultAddress" parameterType="com.ftc.wechat.user.pojo.WechatUserAddress" >
+    update wechat_user_address
+    set address_default = #{addressDefault,jdbcType=INTEGER}
+    where address_userid = #{addressUserid,jdbcType=INTEGER}
+  </update>
+  
+  
+  <select id="selectByUserId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from wechat_user_address
+    where address_userid = #{addressUserid,jdbcType=INTEGER}
+    order by address_default desc
+  </select>
+</mapper>

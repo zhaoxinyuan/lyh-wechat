@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ftc.wechat.sys.dao.WechatSysPointsRuleDao" >
+  <resultMap id="BaseResultMap" type="com.ftc.wechat.sys.pojo.WechatSysPointsRule" >
+    <id column="rule_id" property="ruleId" jdbcType="INTEGER" />
+    <result column="rule_dictid" property="ruleDictid" jdbcType="INTEGER" />
+    <result column="rule_value" property="ruleValue" jdbcType="DOUBLE" />
+  </resultMap>
+  <resultMap id="JoinResultMap" type="com.ftc.wechat.sys.pojo.WechatSysPointsRule" >
+    <id column="rule_id" property="ruleId" jdbcType="INTEGER" />
+    <result column="rule_value" property="ruleValue" jdbcType="DOUBLE" />
+    <association column="rule_dictid" property="ruleDict" javaType="com.ftc.wechat.sys.pojo.WechatSysPointsDict">
+  		<id column="dict_id" property="dictId" jdbcType="INTEGER" />
+    	<result column="dict_code" property="dictCode" jdbcType="VARCHAR" />
+    	<result column="dict_name" property="dictName" jdbcType="VARCHAR" />
+    	<result column="dict_type" property="dictType" jdbcType="VARCHAR" />
+  	</association>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    rule_id, rule_dictid, rule_value
+  </sql>
+  <select id="selectAll" resultMap="JoinResultMap" parameterType="java.lang.Integer" >
+    select a.*,
+           b.*
+    from wechat_sys_pointsrule a
+    left join wechat_sys_pointsdict b on a.rule_dictid = b.dict_id
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from wechat_sys_pointsrule
+    where rule_id = #{ruleId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.ftc.wechat.sys.pojo.WechatSysPointsRule" >
+    insert into wechat_sys_pointsrule (rule_id, rule_dictid, rule_value
+      )
+    values (#{ruleId,jdbcType=INTEGER}, #{ruleDictid,jdbcType=INTEGER}, #{ruleValue,jdbcType=DOUBLE}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.ftc.wechat.sys.pojo.WechatSysPointsRule" >
+    insert into wechat_sys_pointsrule
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="ruleId != null" >
+        rule_id,
+      </if>
+      <if test="ruleDictid != null" >
+        rule_dictid,
+      </if>
+      <if test="ruleValue != null" >
+        rule_value,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="ruleId != null" >
+        #{ruleId,jdbcType=INTEGER},
+      </if>
+      <if test="ruleDictid != null" >
+        #{ruleDictid,jdbcType=INTEGER},
+      </if>
+      <if test="ruleValue != null" >
+        #{ruleValue,jdbcType=DOUBLE},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ftc.wechat.sys.pojo.WechatSysPointsRule" >
+    update wechat_sys_pointsrule
+    <set >
+      <if test="ruleDictid != null" >
+        rule_dictid = #{ruleDictid,jdbcType=INTEGER},
+      </if>
+      <if test="ruleValue != null" >
+        rule_value = #{ruleValue,jdbcType=DOUBLE},
+      </if>
+    </set>
+    where rule_id = #{ruleId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ftc.wechat.sys.pojo.WechatSysPointsRule" >
+    update wechat_sys_pointsrule
+    set rule_dictid = #{ruleDictid,jdbcType=INTEGER},
+      rule_value = #{ruleValue,jdbcType=DOUBLE}
+    where rule_id = #{ruleId,jdbcType=INTEGER}
+  </update>
+</mapper>

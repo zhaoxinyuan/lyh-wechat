@@ -1,0 +1,44 @@
+.success-panel {
+	border-radius: .1rem;
+	background: #fff;
+	padding: 15px;
+}
+
+.success-panel-icon,.success-panel-message{
+	color: #00CC66;
+    margin-right: .5rem;
+    display: inline-block;
+}
+
+.success-panel-message{
+	color: #666;
+    margin-right: .5rem;
+}
+
+.success-panel-message > p{
+	margin-top: 0px;
+	font-size: .5rem;
+}
+
+
+.success-button {
+	margin-top: 25px;
+}
+
+.error-icon {
+	line-height: 50px;
+	color: #999999;
+}
+
+.row .col-80{
+	margin-left: 0px;
+}
+
+.pay-message{
+	padding: 5%;
+}
+
+.pay-message-detail{
+	color: #bbb;
+	font-size: 14px;
+}
