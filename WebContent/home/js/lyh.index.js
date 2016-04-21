@@ -51,7 +51,12 @@ var index = {
 		searchOptions : new Object(),
 		scrollOptions : new Object(),
 		loadend : false,
+		categoryid : 0,
 		init : function() {
+			this.categoryid = $.fn.getUrlParam('categoryid');
+			if(this.categoryid)
+				$('.title').html(this.categoryid == 1 ? '零元区' : '精品区');
+			
 			$(".swiper-container-index").swiper({
 				pagination : '.swiper-pagination',
 				nextButton : '.swiper-button-next',
@@ -61,6 +66,10 @@ var index = {
 				centeredSlides : true,
 				autoplay : 2500,
 				autoplayDisableOnInteraction : false
+			});
+			
+			$('.home-category').click(function(){
+				forward('category/product.jsp?categoryid=' + $(this).data('category'));
 			});
 			
 			$('.index-topoints').click(function(){
@@ -89,8 +98,9 @@ var index = {
 		},
 		getProducts : function() {
 			$.ajax({
-				url : server.basepath + 'productAction/getProducts',
+				url : server.basepath + (this.categoryid ?  'productAction/getProductsByCategory' : 'productAction/getProducts'),
 				data : {
+					productCategoryid : this.categoryid,
 					pageNo : this.searchOptions.pageNo,
 					pageSize : this.searchOptions.pageSize
 				},
@@ -126,23 +136,7 @@ var index = {
 					});
 					
 					$('.product-item').off().on('click',function(e){
-						//forward('product/product.jsp?productid=' + $(this).data('productid'));
 						var $this = $(this);
-						/*$.get(server.basepath + 'product/product.jsp?productid=' + $this.data('productid'), function( response, status, xhr ) {
-							$('.popup-product').html(response);
-							$.getScript(server.basepath + 'resources/swiper/dist/js/swiper.min.js',function(data){
-								$.getScript(server.basepath + 'resources/js/plugin/zepto.fx_methods.js',function(data){
-									$.getScript(server.basepath + 'product/js/lyh.product.js',function(data){
-										product.productid = $this.data('productid');
-										product.init();
-										$.popup('.popup-product');
-									});
-								});
-							});
-							$.popup('.popup-product');
-						});*/
-						//window.location.hash = 'product';
-						
 						if($('#page_product_' + $this.data('productid')).length == 0){
 							var productPanle = myRouter.openProduct($this.data('productid'));
 							new productMaster($this.data('productid'));

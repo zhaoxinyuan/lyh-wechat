@@ -7,7 +7,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+<meta http-equiv="Pragma" content="no-cache" />
+<meta http-equiv="Expires" content="0" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
 
 <title>零元汇</title>
@@ -86,7 +89,7 @@ $.config = {
 						<div class="swiper-slide my-carousel">
 							<img src="<%=basePath%>home/img/carousel1.jpg">
 					</div>
-					<div class="swiper-slide my-carousel">
+					<div class="swiper-slide my-carousel" >
 						<img src="<%=basePath%>home/img/carousel2.jpg">
 					</div>
 					<div class="swiper-slide my-carousel index-topoints">
@@ -109,8 +112,8 @@ $.config = {
 						</div>
 					</div>
 					<div class="col-50">
-						<div class="border-b product-promotion-img-right product-promotion-img-right-t"></div>
-						<div class="product-promotion-img-right product-promotion-img-right-b"></div>
+						<div class="border-b product-promotion-img-right product-promotion-img-right-t home-category" data-category="1"></div>
+						<div class="product-promotion-img-right product-promotion-img-right-b home-category" data-category="2"></div>
 					</div>
 				</div>
 				<div class="infinite-scroll infinite-scroll-bottom no-gutter product-list">

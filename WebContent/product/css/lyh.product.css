@@ -198,7 +198,6 @@
 
 .product-detail-imgs{
 	background-color : #fff;
-	padding-bottom: 2rem;
 }
 
 .product-detail-imgs > img{
@@ -254,3 +253,16 @@
 .button-fixed{
 	border-radius : 0px;
 }
+
+
+@keyframes toup{
+	from {top: 0px;}
+	to {top : -1000px;}
+}
+
+@keyframes todown{
+	from {top: -1000px;}
+	to {top : 0px;}
+}
+
+

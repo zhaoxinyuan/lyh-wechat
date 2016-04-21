@@ -4,11 +4,6 @@ $(function () {
 
 var myRouter = {
 	init : function(){
-		/* TODO
-		 load index.js class init()
-		 load wechat js SDK
-		*/
-		
 		$('.page-topointsmall').on('click',function(){
 			mall.init();
 			$.router.load('#page_pointsmall');
@@ -18,7 +13,7 @@ var myRouter = {
 		if(productid){
 			var productPanle = myRouter.openProduct(productid);
 			new productMaster(productid);
-			$.router.load('#' + 'page_product_' + productid);
+			$.router.load('#' + 'page_product_' + productid,true);
 		}
 	},
 	openProduct : function(productid){
@@ -137,7 +132,7 @@ var myRouter = {
 											'</div>' + 
 										'</div>' +
 										' <div class="product-spec-fixed">' +
-											'<a href="#" class="button button-fill button-danger button-fixed">确定</a>' + 
+											'<a href="#" class="button button-fill button-danger button-big button-fixed">确定</a>' + 
 										'</div>' + 
 									'</div>' +	
 								'</div>' + 

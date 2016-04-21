@@ -34,6 +34,7 @@ var orders = {
 					});
 					$('#' + tab.attr('data-table-id')).append(ordersHtml);
 					$('.order-product').off().on('click',function(){
+						/*
 						var $this = $(this);
 						$.get(server.basepath + 'product/product.jsp?productid=' + $this.data('productid'), function( response, status, xhr ) {
 							$('.popup-product').html(response);
@@ -48,6 +49,7 @@ var orders = {
 							});
 							$.popup('.popup-product');
 						});
+						*/
 					});
 					
 					orders.addOrderButtonEvents();

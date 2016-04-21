@@ -17,7 +17,47 @@ function productMaster(productid){
 				this.panel = $('#' + 'page_product_' + product.productid);
 				
 				//this.productid = $.fn.getUrlParam('productid');
-				product.panel.find('.product-detail').hide();
+				
+				$(product.panel).on('mouseup',function(e){
+					if( product.toDetail){
+			    		 product.toDetail = false; 
+			    		 product.panel.find(".product-detail").find('.wrapper').animate({ top : '0px'}, 300);
+			    		 product.panel.find(".product").find('.wrapper').animate({bottom : '9999px'},300);
+			    		setTimeout(function(){
+			    			product.initProductIScroll.detail();
+				    		product.productDetailScroll.refresh();
+			    		}, 500)
+			    	 }
+					
+					 if( product.toInfo){
+			    		 product.toInfo = false;
+			    		 product.panel.find('.product-detail-upload-msg').css({'line-height' : 0 + 'px','display' : 'none'});
+			    		 product.panel.find('.product-detail').find('.wrapper').animate({top : '9999px'},300);
+			    		 product.panel.find(".product").find('.wrapper').animate({bottom : '0px'}, 300);
+			    	 }
+				});
+				
+				$(product.panel).on('touchend',function(e){
+					if( product.toDetail){
+			    		 product.toDetail = false; 
+			    		 product.panel.find(".product-detail").find('.wrapper').animate({ top : '0px'}, 300);
+			    		 product.panel.find(".product").find('.wrapper').animate({bottom : '9999px'},300);
+			    		setTimeout(function(){
+			    			product.initProductIScroll.detail();
+				    		product.productDetailScroll.refresh();
+			    		}, 500)
+			    	 }
+					
+					 if( product.toInfo){
+			    		 product.toInfo = false;
+			    		 product.panel.find('.product-detail-upload-msg').css({'line-height' : 0 + 'px','display' : 'none'});
+			    		 product.panel.find('.product-detail').find('.wrapper').animate({top : '9999px'},300);
+			    		 product.panel.find(".product").find('.wrapper').animate({bottom : '0px'}, 300);
+			    	 }
+				});
+			
+				product.panel.find('.product-detail').find('.wrapper').css({top : '9999px'});
+				product.panel.find('.product-detail-upload-msg').css({'display' : 'none'});
 				
 				product.panel.find('.product-button-index').on('click',function(){
 					if(signuser.userid == 'null'){
@@ -28,21 +68,9 @@ function productMaster(productid){
 				});
 				
 				product.panel.find('.product-button-back').on('click',function(){
-					/*
-					$.closeModal('.popup');
-					if($('.product-detail').hasClass('active')){
-						$('.product-detail').hide().removeClass('active');
-						$('.product').show().addClass('active');
-						product.mySwiper.slideTo(0, 1000, false);
-						$('.pagination').empty().append(1 + '/' + product.productData.infoImgLenght);
-					}else if(signuser.userid == 'null'){
-						forward('http://mp.weixin.qq.com/s?__biz=MzA3ODMzMDc1MQ==&mid=401626688&idx=1&sn=400d52d33f9f97e132548762c8027dab&scene=0&previewkey=YyKiz7h4aifQX9zQTANiL8NS9bJajjJKzz%2F0By7ITJA%3D#wechat_redirect',true);
-					}else if(product.popup){
-						$.closeModal('.popup');
-					}else{
-						alert(1);
-						forward('home/index.jsp');
-					}*/
+					setTimeout(function(){
+						product.panel.remove();
+					}, 500);
 				});
 				
 				product.panel.find('.product-button-followus').on('click',function(){
@@ -55,18 +83,18 @@ function productMaster(productid){
 						forward('http://mp.weixin.qq.com/s?__biz=MzA3ODMzMDc1MQ==&mid=401626688&idx=1&sn=400d52d33f9f97e132548762c8027dab&scene=0&previewkey=YyKiz7h4aifQX9zQTANiL8NS9bJajjJKzz%2F0By7ITJA%3D#wechat_redirect',true);
 					}else if(product.spec == ''){
 						$('.product-spec').click();
-						$('.product-spec').click();
+						product.panel.find(".product-spec-list").animate({height: '70%;',display : 'block'}, 300);
 					}else{
 						forward('orderAction/createorder?productid=' + product.productid + '&productspec=' + product.spec);
 					}
 				});
 				
 				product.panel.find('.product-spec').on('click',function(){
-					product.panel.find(".product-spec-list").animate({height: '70%;',display : 'block'}, 200);
+					product.panel.find(".product-spec-list").animate({height: '70%;',display : 'block'}, 300);
 				});
 				
 				product.panel.find('.product-spec-close').on('click',function(){
-					product.panel.find(".product-spec-list").animate({height: '0px;',display : 'none'}, 200);
+					
 				});
 				
 				product.panel.find('.button-fixed').on('click',function(){
@@ -76,10 +104,10 @@ function productMaster(productid){
 							product.spec += $(this).closest('.product-spec-detail').find('p').html() + ':' + $(this).html() + ';';
 						});
 					}
-					product.panel.find('.product-spec-close').click();
-					product.panel.find('.product-spec-close').click();
+					product.panel.find(".product-spec-list").animate({height: '0px;',display : 'none'}, 300);
 					product.panel.find('.product-spec-info-msg').empty().append('已选：' + product.spec);
 					product.panel.find('.product-spec').find('.item-title').empty().append('已选：' + product.spec);
+					forward('orderAction/createorder?productid=' + product.productid + '&productspec=' + product.spec);
 				});		
 				
 				product.panel.find('.tab-link').off().on('click',function(){
@@ -96,14 +124,17 @@ function productMaster(productid){
 						product.panel.find('.pagination').empty().append((swiper.activeIndex + 1) + '/' + product.productData.infoImgLenght);
 						if(swiper.activeIndex == product.productData.infoImgLenght){
 							
-				    		 product.panel.find('.product-detail').show();
+							product.panel.find(".product-detail").find('.wrapper').animate({ top : '0px'}, 300);
 				    		 
-				    		 product.panel.find(".product-detail").find('.wrapper').css({display : 'block',top : '0px;'});
-				    		 product.panel.find(".product").find('.wrapper').css({display : 'none',top : '0px;'});
+				    		product.panel.find(".product").find('.wrapper').animate({bottom : '9999px'},300);
 				    		 
-				    		product.initProductIScroll.detail();
-				    		
-				    		product.productDetailScroll.refresh();
+				    		setTimeout(function(){
+				    			product.initProductIScroll.detail();
+					    		product.productDetailScroll.refresh();
+					    		
+					    		product.initProductIScroll.detail();
+					    		product.productDetailScroll.refresh();
+				    		}, 500)
 						}
 					},
 					onTap : function(swiper){
@@ -126,16 +157,27 @@ function productMaster(productid){
 						product.productData = res;
 						product.productData.infoImgLenght = 0;
 						product.productData.detailImgLenght = 0;
-						
+						product.panel.find('.product-detail-imgs').empty();
+						product.initProductIScroll.detail();
 						$.each(res.productImage,function(idx,itm){
 							if(this.imageType == 1){
-								product.mySwiper.appendSlide('<div class="swiper-slide my-carousel">' + '<img src="' + server.productImagePath + this.imageUrl + '"></div>');
+								product.mySwiper.appendSlide('<div class="swiper-slide my-carousel">' + '<img src="' + server.productImagePath + this.imageUrl + '?v=' + new Date().getTime() +'"></div>');
 								product.productData.infoImgLenght ++;
 								product.productImgs.push(server.productImagePath + this.imageUrl);
 							}else{
-								product.panel.find('.product-detail-imgs').append('<img src="' + server.productImagePath +  this.imageUrl + '"/>');
+								product.panel.find('.product-detail-imgs').append('<img class="lazyload" id="page_product_'+product.productid+idx+'" data-src="'+server.productImagePath + this.imageUrl+ '?v=' + new Date().getTime() + '">');
 								product.productData.detailImgLenght ++;
+								product.preload(server.productImagePath +  this.imageUrl,$('#' + 'page_product_'+product.productid+idx));
 							}
+						});
+						
+						$('.lazyload').lazyload({
+							container: $('.product-detail').find('.scroller'),
+							effect: 'show',
+							effectArgs: 'slow',
+							loadImg: server.basepath + 'product/img/default.png',
+							load: null,
+							offset: 0
 						});
 						
 						product.mySwiper.appendSlide('<div class="swiper-slide my-carousel swiper-slide-todetail"><div class="swiper-todetail" style="width : '+$(window).width()  + 'px'+';height : '+$(window).width()  + 'px'+'"><div class="swiper-todetail-icon"><i class="fa fa-arrow-circle-o-right"></i></div><div class="swiper-todetail-text">释放查看图文详情</div></div></div>');
@@ -152,7 +194,6 @@ function productMaster(productid){
 						product.panel.find('.product-info-mallprice').append('<s><i class="fa fa-rmb"></i>&nbsp;' + res.productMallPrice.toFixed(2) + '</s>');
 						product.panel.find('.product-info-price').append('<i class="fa fa-rmb"></i>&nbsp;' + res.productPrice.toFixed(2));
 						product.panel.find('.product-info-expressprice').append('<i class="fa fa-rmb"></i>&nbsp;' + res.productExpressPrice.toFixed(2));
-						
 						
 						product.panel.find('.product-spec-info-name').append(res.productName);
 						
@@ -175,7 +216,7 @@ function productMaster(productid){
 							product.panel.find('.product-spec-list').append(specs);
 						}else{
 							product.spec = ' ';
-							product.panel.find('.product-spec').remove();
+							product.panel.find('.product-spec');
 						}
 						
 						product.panel.find('.product-spec-image').css('background-image','url('+server.productImagePath + res.productImageurl+')');
@@ -184,9 +225,6 @@ function productMaster(productid){
 							$(this).parent().find('.label').removeClass('label-selected');
 							$(this).addClass('label-selected');
 						});
-						
-						
-						//$('.product-detail-spec').find('.col-80').append(res.productSpec);
 						
 						$.ajax({
 							url : server.basepath + 'productAction/getProducts',
@@ -199,7 +237,7 @@ function productMaster(productid){
 								var products = '';
 								$.each(res,function(idx,itm){
 									products += '<div class="col-33 product-like-item" data-productid="' + this.productId + '">' + 
-													'<div class="product-like-item-image border-radius" style="background-image : url('+server.productImagePath + this.productImageurl+')"></div>' + 
+													'<div class="product-like-item-image border-radius" style="background-image : url('+server.productImagePath + this.productImageurl+ '?v=' + new Date().getTime() + ')"></div>' + 
 													'<div class="product-like-item-name nowrap-flex">' + 
 														'<strong>' + this.productName + '</strong>' + 
 													'</div>' + 
@@ -217,9 +255,7 @@ function productMaster(productid){
 									$.router.load('#' + 'page_product_' + $(this).data('productid'));
 								});
 								product.panel.find('.hide').removeClass('hide');								
-								
 								product.initProductIScroll.info();
-								
 							}
 						});
 						
@@ -265,46 +301,21 @@ function productMaster(productid){
 			            momentum:true// 允许有惯性滑动  
 			        });
 					
+					product.productInfoScroll.on('scrollStart',function(){
+						console.log();
+					});
+					
 					product.productInfoScroll.on('scroll',function(){
-						 if(this.y > 0){
-							 
+						 if(this.y < (this.maxScrollY - 10)){
+							 product.panel.find(".product-detail").find('.wrapper').css({'top' : (product.panel.find(".product").find('.wrapper').height() + this.y - this.maxScrollY) + 'px'});
 						 }
 						 if(this.y < (this.maxScrollY - 40)){
 							 product.toDetail = true;
 						 }
-						 
 					 });
 					 
 					product.productInfoScroll.on('scrollEnd',function(){
-						if( product.toDetail){
-				    		 product.toDetail = false; 
-				    		// product.panel.find('.product').hide().removeClass('active');
-				    		// product.panel.find('.product-detail').show().addClass('active');
-				    		 
-				    		 product.panel.find('.product-detail').show();
-				    		 
-				    		 product.panel.find(".product").find('.wrapper').animate({
-				    			 top : '-15%'
-				    		 }, 500);
-				    		 product.panel.find(".product-detail").find('.wrapper').animate({
-				    			 top : '80%'
-				    		 }, 500);
-				    		 
-				    		 
-				    		 product.panel.find(".product").find('.wrapper').animate({
-				    			 top : '-100%'
-				    		 }, 300);
-				    		 
-				    		 product.panel.find(".product-detail").find('.wrapper').animate({
-				    			 top : '0px',
-				    			 display : 'block'
-				    		 }, 300);
-				    		 
-				    		 $('.product').hide();
-				    		 
-				    		product.initProductIScroll.detail();
-				    		product.productDetailScroll.refresh();
-				    	 }
+						
 				    });
 				},
 				detail : function(){
@@ -324,7 +335,7 @@ function productMaster(productid){
 				     
 					 product.productDetailScroll.on('scroll',function(){
 						 if(this.y > 0){
-							 product.panel.find('.product-detail-upload-msg').css({'line-height' : this.y + 'px'});
+							 product.panel.find('.product-detail-upload-msg').css({'line-height' : this.y + 'px','display' : 'block'});
 							 if(this.y > 40){
 								 product.toInfo = true; 
 								 product.mySwiper.slideTo(0, 1000, false);
@@ -334,30 +345,7 @@ function productMaster(productid){
 					 });
 				     
 					 product.productDetailScroll.on('scrollEnd',function(){
-				    	 if( product.toInfo){
-				    		 product.toInfo = false; 
-				    		 //product.panel.find('.product-detail').hide().removeClass('active');
-				    		 //product.panel.find('.product').show().addClass('active');
-				    		 
-				    		 $('.product').show();
-				    		 product.panel.find(".product").find('.wrapper').animate({
-				    			 top : '999999px'
-				    		 }, 500);
-				    		 
-				    		 product.panel.find(".product-detail").find('.wrapper').animate({
-				    			 top : '15%'
-				    		 }, 500);
-				    		 
-				    		 product.panel.find(".product").find('.wrapper').animate({
-				    			 top : '0px',
-				    			 display : 'block'
-				    		 }, 300);
-				    		 
-				    		 product.panel.find(".product-detail").find('.wrapper').animate({
-				    			 top : '100%',
-				    			 display : 'none'
-				    		 }, 300);
-				    	 }
+				    	
 				     });
 				}	
 			},
@@ -366,7 +354,17 @@ function productMaster(productid){
 				$('.photo-browser-close-link').on('click',function(){
 					$('.photo-browser').remove();
 				});
-			}
+			},
+			preload : function(url,$img){
+				var img = new Image();
+				img.src = url; 
+				img.onload = function(){
+					//product.panel.find('.product-detail').find('.product-detail-imgs').height();
+					//$img.attr('src',img.src);
+					$img.css('height',img.height + 'px');
+		    		product.productDetailScroll.refresh();
+				}
+			} 
 	};
 	product.productid = productid;
 	product.init();
