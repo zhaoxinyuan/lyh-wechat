@@ -49,6 +49,13 @@
     where product_up = 1
     order by product_sort
   </select>
+  <select id="findProductByCategory" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+    select 
+    <include refid="Base_Column_List" />
+    from wechat_product
+    where product_up = 1 and product_categoryid = #{productCategoryid,jdbcType=INTEGER}
+    order by product_sort
+  </select>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />

@@ -30,6 +30,11 @@ public class ProductAction {
 		return productservice.findProduct(searchParam.getPageNo(),searchParam.getPageSize());
 	}
 	
+	@RequestMapping(value = "getProductsByCategory",method = RequestMethod.GET) 
+	public List<WechatProduct> getProductsByCategory(HttpServletRequest request,HttpServletResponse response,ProductSerachParam searchParam,Integer productCategoryid){
+		return productservice.findProductByCategory(searchParam.getPageNo(),searchParam.getPageSize(),productCategoryid);
+	}
+	
 	@RequestMapping(value = "getProduct",method = RequestMethod.GET) 
 	public WechatProduct getProduct(HttpServletRequest request,HttpServletResponse response,Integer productId){
 		return productservice.findProduct(productId);

@@ -20,9 +20,16 @@ public class ProductServiceImpl implements ProductService{
 		PageHelper.startPage(pageNo,pageSize);
 		return productdao.findProduct();
 	}
+	
+	@Override
+	public List<WechatProduct> findProductByCategory(Integer pageNo, Integer pageSize, Integer productCategoryid) {
+		PageHelper.startPage(pageNo,pageSize);
+		return productdao.findProductByCategory(productCategoryid);
+	}
 
 	@Override
 	public WechatProduct findProduct(Integer productId) {
 		return productdao.findProductInfo(productId);
 	}
+
 }

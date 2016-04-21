@@ -4,100 +4,109 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
-
 public class WechatProduct {
-    private Integer productId;
+	private Integer productId;
 
-    private String productName;
+	private String productName;
 
-    private String productDescribe;
+	private String productDescribe;
 
-    private Double productPrice;
-    
-    private Double productMallPrice;
-    
-    private Double productExpressPrice;
+	private Double productPrice;
 
-    private Double productPurchasePrice;
+	private Double productMallPrice;
 
-    private String productImageurl;
+	private Double productExpressPrice;
 
-    private String productDetailurl;
-    
-    private String productUpdatetime;
-    
-    private Integer productUp;
-    
-    private String productSpec;
-    
-    private List<WechatProductImage> productImage;
-    
-    private List<WechatProductSpec> productSpecs;
+	private Double productPurchasePrice;
 
-    public Integer getProductId() {
-        return productId;
-    }
+	private String productImageurl;
 
-    public void setProductId(Integer productId) {
-        this.productId = productId;
-    }
+	private String productDetailurl;
 
-    public String getProductName() {
-        return productName;
-    }
+	private String productUpdatetime;
 
-    public void setProductName(String productName) {
-        this.productName = productName == null ? null : productName.trim();
-    }
+	private Integer productUp;
 
-    public String getProductDescribe() {
-        return productDescribe;
-    }
+	private String productSpec;
 
-    public void setProductDescribe(String productDescribe) {
-        this.productDescribe = productDescribe == null ? null : productDescribe.trim();
-    }
+	private Integer productCategoryid;
 
-    public Double getProductPrice() {
-        return productPrice;
-    }
+	private List<WechatProductImage> productImage;
 
-    public void setProductPrice(Double productPrice) {
-        this.productPrice = productPrice;
-    }
+	private List<WechatProductSpec> productSpecs;
 
-    public Double getProductPurchasePrice() {
-        return productPurchasePrice;
-    }
+	public Integer getProductId() {
+		return productId;
+	}
 
-    public void setProductPurchasePrice(Double productPurchasePrice) {
-        this.productPurchasePrice = productPurchasePrice;
-    }
+	public void setProductId(Integer productId) {
+		this.productId = productId;
+	}
 
-    public String getProductImageurl() {
-        return productImageurl;
-    }
+	public String getProductName() {
+		return productName;
+	}
 
-    public void setProductImageurl(String productImageurl) {
-        this.productImageurl = productImageurl == null ? null : productImageurl.trim();
-    }
+	public void setProductName(String productName) {
+		this.productName = productName == null ? null : productName.trim();
+	}
 
+	public String getProductDescribe() {
+		return productDescribe;
+	}
 
-    public String getProductDetailurl() {
-        return productDetailurl;
-    }
+	public void setProductDescribe(String productDescribe) {
+		this.productDescribe = productDescribe == null ? null : productDescribe.trim();
+	}
 
-    public void setProductDetailurl(String productDetailurl) {
-        this.productDetailurl = productDetailurl == null ? null : productDetailurl.trim();
-    }
+	public Double getProductPrice() {
+		return productPrice;
+	}
 
-    public String getProductUpdatetime() {
+	public void setProductPrice(Double productPrice) {
+		this.productPrice = productPrice;
+	}
+
+	public Double getProductPurchasePrice() {
+		return productPurchasePrice;
+	}
+
+	public void setProductPurchasePrice(Double productPurchasePrice) {
+		this.productPurchasePrice = productPurchasePrice;
+	}
+
+	public Integer getProductCategoryid() {
+		return productCategoryid;
+	}
+
+	public void setProductCategoryid(Integer productCategoryid) {
+		this.productCategoryid = productCategoryid;
+	}
+
+	public String getProductImageurl() {
+		return productImageurl;
+	}
+
+	public void setProductImageurl(String productImageurl) {
+		this.productImageurl = productImageurl == null ? null : productImageurl.trim();
+	}
+
+	public String getProductDetailurl() {
+		return productDetailurl;
+	}
+
+	public void setProductDetailurl(String productDetailurl) {
+		this.productDetailurl = productDetailurl == null ? null : productDetailurl.trim();
+	}
+
+	public String getProductUpdatetime() {
 		return productUpdatetime;
 	}
 
-	public void setProductUpdatetime(String productUpdatetime){
+	public void setProductUpdatetime(String productUpdatetime) {
 		try {
-			this.productUpdatetime = new SimpleDateFormat("MM-dd HH:mm").format(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(productUpdatetime));
+			this.productUpdatetime = new SimpleDateFormat("MM-dd HH:mm")
+					.format(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(productUpdatetime));
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -143,7 +152,7 @@ public class WechatProduct {
 	public void setProductSpec(List<WechatProductSpec> productSpecs) {
 		this.productSpecs = productSpecs;
 	}
-	
+
 	public String getProductSpec() {
 		return productSpec;
 	}
@@ -156,9 +165,8 @@ public class WechatProduct {
 		this.productSpecs = productSpecs;
 	}
 
-
 	// for order
-    private Integer qty = 0;
+	private Integer qty = 0;
 	@SuppressWarnings("unused")
 	private Double amount = 0D;
 

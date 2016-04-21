@@ -8,5 +8,7 @@ public interface ProductService {
 
 	List<WechatProduct> findProduct(Integer pageNo,Integer pageSize);
 	
+	List<WechatProduct> findProductByCategory(Integer pageNo,Integer pageSize,Integer productCategoryid);
+	
 	WechatProduct findProduct(Integer productId);
 }

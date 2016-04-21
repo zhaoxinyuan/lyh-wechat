@@ -19,6 +19,8 @@ public interface WechatProductDao {
     
     List<WechatProduct> findProduct();
     
+    List<WechatProduct> findProductByCategory(Integer productCategoryid);
+    
     WechatProduct findProductInfo(Integer productId);
    
 }
