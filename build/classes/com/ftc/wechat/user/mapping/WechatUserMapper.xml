@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ftc.wechat.user.dao.WechatUserDao">
+  <resultMap id="BaseResultMap" type="com.ftc.wechat.user.pojo.WechatUser">
+    <id column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="user_wechatid" jdbcType="VARCHAR" property="userWechatid" />
+    <result column="user_nickname" jdbcType="VARCHAR" property="userNickname" />
+    <result column="user_mobile" jdbcType="VARCHAR" property="userMobile" />
+    <result column="user_email" jdbcType="VARCHAR" property="userEmail" />
+    <result column="user_headimgurl" jdbcType="VARCHAR" property="userHeadImgUrl" />
+    <result column="user_subscribetime" jdbcType="VARCHAR" property="userSubscribeTime" />
+  </resultMap>
+  <resultMap id="userInfoResultMap" type="com.ftc.wechat.user.pojo.WechatUser">
+  	<result column="userOrderNotPayNum" jdbcType="INTEGER" property="userOrderNotPayNum" />
+  	<result column="userOrderNotReceivedNum" jdbcType="DOUBLE" property="userOrderNotReceivedNum" />
+  	<result column="userOrderReceivedNum" jdbcType="DOUBLE" property="userOrderReceivedNum" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    user_id, user_wechatid, user_nickname, user_mobile, user_email,user_headimgurl,user_subscribetime
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from wechat_user
+    where user_id = #{userId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from wechat_user
+    where user_id = #{userId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.ftc.wechat.user.pojo.WechatUser">
+    insert into wechat_user (user_id, user_wechatid, user_nickname, user_mobile, user_email,user_headimgurl)
+    values (#{userId,jdbcType=INTEGER}, #{userWechatid,jdbcType=VARCHAR}, #{userNickname,jdbcType=VARCHAR}, 
+      #{userMobile,jdbcType=VARCHAR}, #{userEmail,jdbcType=VARCHAR},#{userHeadImgUrl,jdbcType=VARCHAR},#{userSubscribeTime,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ftc.wechat.user.pojo.WechatUser">
+    insert into wechat_user
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="userWechatid != null">
+        user_wechatid,
+      </if>
+      <if test="userNickname != null">
+        user_nickname,
+      </if>
+      <if test="userMobile != null">
+        user_mobile,
+      </if>
+      <if test="userEmail != null">
+        user_email,
+      </if>
+      <if test="userHeadImgUrl != null">
+        user_headimgurl,
+      </if>
+        <if test="userSubscribeTime != null">
+        user_subscribetime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="userWechatid != null">
+        #{userWechatid,jdbcType=VARCHAR},
+      </if>
+      <if test="userNickname != null">
+        #{userNickname,jdbcType=VARCHAR},
+      </if>
+      <if test="userMobile != null">
+        #{userMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="userEmail != null">
+        #{userEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="userHeadImgUrl != null">
+        #{userHeadImgUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="userSubscribeTime != null">
+        #{userSubscribeTime,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ftc.wechat.user.pojo.WechatUser">
+    update wechat_user
+    <set>
+      <if test="userWechatid != null">
+        user_wechatid = #{userWechatid,jdbcType=VARCHAR},
+      </if>
+      <if test="userNickname != null">
+        user_nickname = #{userNickname,jdbcType=VARCHAR},
+      </if>
+      <if test="userMobile != null">
+        user_mobile = #{userMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="userEmail != null">
+        user_email = #{userEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="userHeadImgUrl != null">
+        user_headimgurl = #{userHeadImgUrl,jdbcType=VARCHAR},
+      </if>
+       <if test="userSubscribeTime != null">
+        user_subscribetime = #{userSubscribeTime,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where user_id = #{userId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ftc.wechat.user.pojo.WechatUser">
+    update wechat_user
+    set user_wechatid = #{userWechatid,jdbcType=VARCHAR},
+      user_nickname = #{userNickname,jdbcType=VARCHAR},
+      user_mobile = #{userMobile,jdbcType=VARCHAR},
+      user_email = #{userEmail,jdbcType=VARCHAR},
+      user_headimgurl = #{userHeadImgUrl,jdbcType=VARCHAR},
+      user_subscribetime = #{userSubscribeTime,jdbcType=VARCHAR}
+    where user_id = #{userId,jdbcType=INTEGER}
+  </update>
+  
+   <select id="selectByWechatId" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from wechat_user
+    where user_wechatid = #{userWechatid,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="selectUserInfo" parameterType="java.lang.Integer" resultMap="userInfoResultMap">
+   select sum(case when a.status_code = 'status_01' then orderNum else 0 end) as userOrderNotPayNum,
+       	  sum(case when a.status_code = 'status_03' then orderNum else 0 end) as userOrderNotReceivedNum,
+          sum(case when a.status_code = 'status_04' then orderNum else 0 end) as userOrderReceivedNum
+   from (
+  		select 	status.status_code,
+        		count(1) as orderNum
+		from wechat_order orders
+		left join wechat_order_status status on orders.order_statusid = status.status_id
+		left join wechat_user user on orders.order_userid = user.user_id
+  		where user.user_id = #{userId,jdbcType=VARCHAR}
+  		and status.status_code in ('status_01','status_03','status_04')
+  		group by status.status_code
+	) a
+  </select>
+</mapper>

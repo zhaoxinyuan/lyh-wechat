@@ -10,12 +10,14 @@
         };
         
         if(opt.data){
-        	opt.data.now =  new Date().getTime();
+        	opt.data.now =  Math.uuid(32) + Math.ceil(Math.random()*1000);
         }else{
         	opt.data = {
-        			now : new Date().getTime()
+        			now : Math.uuid(32) + Math.ceil(Math.random()*1000)
         	}
         }
+        
+        opt.ifModified = true;
         
         opt.beforeSend = function(xmlHttp){ 
             xmlHttp.setRequestHeader("If-Modified-Since","0"); 

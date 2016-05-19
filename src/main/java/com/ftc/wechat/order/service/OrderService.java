@@ -20,4 +20,7 @@ public interface OrderService {
 	String shippednNtify(String orderNo);
 	
 	void AutoReceiving();
+	
+	WechatOrder getLastOrder(Integer userId);
+	
 }

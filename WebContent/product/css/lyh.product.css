@@ -1,3 +1,33 @@
+.product-button-back-top{
+	position: absolute;
+    top: .5rem;
+    width: 1.5rem;
+    height: 1.5rem;
+    left: .5rem;
+    border-radius: 5rem;
+    z-index: 9;
+    background: rgba(0, 0, 0, 0.3);
+    line-height: 1.5rem;
+    text-align: center;
+    color: #fff;
+    font-size: .8rem;	
+}
+
+.product-button-home{
+	position: absolute;
+    top: .5rem;
+    width: 1.5rem;
+    height: 1.5rem;
+    right: .5rem;
+    border-radius: 5rem;
+    z-index: 9;
+    background: rgba(0, 0, 0, 0.3);
+    line-height: 1.5rem;
+    text-align: center;
+    color: #fff;
+    font-size: .8rem;
+}
+
 .content{
 	background-color: #eee;
 }
@@ -75,10 +105,6 @@
 
 .product-info-service{
 	margin-bottom: .5rem;
-}
-
-.product-info-mallprice,.product-info-price{
-	font-size: .75rem;
 }
 
 .label-list {

@@ -1,4 +1,4 @@
-//wx.ready(function(){
+﻿//wx.ready(function(){
 $(function () {
 	indexScroll = new IScroll('#wrapper_index', {  
         probeType: 1,//probeType：1对性能没有影响。在滚动事件被触发时，滚动轴是不是忙着做它的东西。probeType：2总执行滚动，除了势头，反弹过程中的事件。这类似于原生的onscroll事件。probeType：3发出的滚动事件与到的像素精度。注意，滚动被迫requestAnimationFrame（即：useTransition：假）。  
@@ -82,6 +82,19 @@ var index = {
 				index.getProducts();
 			});
 			
+			setTimeout(function(){
+				$('.bar-footer-secondary').removeClass('hide');
+				setTimeout(function(){
+					$('.bar-footer-secondary').addClass('hide');
+				}, 5000);
+			}, 2000);
+			
+			
+			
+			$('.fa-times-circle').click(function(){
+				$('.bar-footer-secondary').hide();
+			});
+			
 			this.searchOptions = {
 					pageNo : 1,
 					pageSize : 10
@@ -136,12 +149,13 @@ var index = {
 					});
 					
 					$('.product-item').off().on('click',function(e){
+						var UUID = Math.uuid(10,16);
 						var $this = $(this);
 						if($('#page_product_' + $this.data('productid')).length == 0){
-							var productPanle = myRouter.openProduct($this.data('productid'));
-							new productMaster($this.data('productid'));
+							var productPanle = myRouter.openProduct($this.data('productid'),UUID);
+							new productMaster($this.data('productid'),UUID);
 						}
-						$.router.load('#' + 'page_product_' + $this.data('productid'));
+						$.router.load('#' + 'page_product_' + UUID);
 						
 					});
 					
@@ -182,13 +196,13 @@ var index = {
 						'<div class="item-inner">' +
 							'<div class="item-title">' + 
 								'<div class="row" style="width: 104%">' + 
-									'<div class="col-20 product-item-img lazyload" data-src="' + server.productImagePath + item.productImageurl + '?v=' + new Date().getTime() + '"></div>' + 
-									'<div class="col-80">' + 
-										'<div class="product-item-name"><strong>' + item.productName + '</strong></div>' + 
-											'<div class="product-item-price"><i class="fa fa-rmb"></i>&nbsp;<strong>' + item.productPrice.toFixed(2) + '</strong>&nbsp;&nbsp;<s><i class="fa fa-rmb"></i>&nbsp;' + item.productMallPrice.toFixed(2) + '</s></div>' + 
-											'<div class="row" style="width: 104%">' + 
-												'<div class="col-50 product-item-buy"><strong>立即抢购</strong></div>' + 
-												'<div class="col-50 product-item-date">零元汇&nbsp;&nbsp;' + item.productUpdatetime + '</div>' + 
+									'<div class="col-33 product-item-img lazyload" data-src="' + server.productImagePath + item.productImageurl + '?v=' + new Date().getTime() + '"></div>' + 
+									'<div class="col-66">' + 
+										'<div class="product-item-name">' + item.productName + '</div>' + 
+											'<div class="product-item-price"><i class="fa fa-rmb"></i>&nbsp;<span class="product-item-price-integer">' + (item.productPrice.toFixed(2).toString().split('.')[0]) + '</span><span class="product-item-price-float">.' + (item.productPrice.toFixed(2).toString().split('.')[1]) + '</span>&nbsp;&nbsp;<s><i class="fa fa-rmb"></i>&nbsp;' + item.productMallPrice.toFixed(2) + '</s></div>' + 
+											'<div class="row product-item-bottom">' + 
+												'<div class="col-33 product-item-buy"><strong>立即抢购</strong></div>' + 
+												'<div class="col-66 product-item-date">零元汇&nbsp;&nbsp;' + item.productUpdatetime + '</div>' + 
 											'</div>' + 
 										'</div>' + 
 									'</div>' + 

@@ -8,6 +8,7 @@
 <%@ include file="../../common/basic-them.inc"%>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <%
 	WechatPayUnifiedOrder unifiedOrder = (WechatPayUnifiedOrder) request.getSession().getAttribute(request.getParameter("orderno"));
 %>
@@ -36,3 +37,4 @@
 
 </body>
 </html>
+<%@ include file="../../common/basic-script.inc"%>

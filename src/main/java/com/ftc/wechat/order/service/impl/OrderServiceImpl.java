@@ -131,5 +131,10 @@ public class OrderServiceImpl implements OrderService {
 		
 	}
 
+	@Override
+	public WechatOrder getLastOrder(Integer userId) {
+		return orderdao.getLastOrder(userId);
+	}
+
 
 }

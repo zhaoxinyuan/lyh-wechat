@@ -75,7 +75,6 @@ $.config = {
 </style>
 </head>
 <body>
-
 <div class="page-group">
 	<div class="page" id="page_index">
 		<!-- header class="bar bar-nav">
@@ -133,6 +132,9 @@ $.config = {
 				</div>
 			</div>
 		</div>
+		<div class="poptips bar-footer-secondary hide">
+		    <div class="poptips-content row"><div class="col-90">五一活动期间，下单即可获得抽奖机会，百分百中奖</div><div class="col-10"><i class="fa fa fa-times-circle"></i></div></div>
+		</div>
 		<nav class="bar bar-tab">
 			<a class="tab-item external active" href="#">
 				<span class="icon icon-home"></span> 
@@ -153,7 +155,6 @@ $.config = {
 		</nav>
 	</div>
 </div>
-
 </body>
 </html>
 <%@ include file="../../common/basic-script.inc"%>

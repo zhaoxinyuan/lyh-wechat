@@ -32,6 +32,8 @@ import com.ftc.wechat.pay.pojo.WechatPayPlatform;
 import com.ftc.wechat.pay.pojo.WechatPayUnifiedOrder;
 import com.ftc.wechat.pay.service.PayService;
 import com.ftc.wechat.pay.wechatpay.WechatPayUtil;
+import com.ftc.wechat.roll.dao.WechatRollNumberDao;
+import com.ftc.wechat.roll.pojo.WechatRollNumber;
 import com.ftc.wechat.sys.dao.WechatSysPointsRuleDao;
 import com.ftc.wechat.sys.pojo.WechatSysPointsRule;
 import com.ftc.wechat.user.dao.WechatUserPointsDao;
@@ -53,10 +55,13 @@ public class PayServiceImpl implements PayService {
 	private WechatOrderStatusDao statusdao;
 	
 	@Resource
-	WechatSysPointsRuleDao pointsruledao;
+	private WechatSysPointsRuleDao pointsruledao;
 	
 	@Resource
-	WechatUserPointsDao userpointsdao; 
+	private WechatUserPointsDao userpointsdao; 
+	
+	@Resource
+	private WechatRollNumberDao numberdao;
 
 	@Override
 	public List<WechatPayPlatform> findAllPlatform() {
@@ -145,6 +150,10 @@ public class PayServiceImpl implements PayService {
 					points.setPointsDate(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
 					points.setPointsUserid(order.getOrderUserid());
 					
+					/**
+					 * 支付成功后获得相应积分
+					 * */
+					
 					for (WechatSysPointsRule rule : pointsruledao.selectAll()) {
 						if(rule.getRuleDict().getDictCode().equals("dict_001")){
 							points.setPointsDetail(order.getOrderProductAmt() * rule.getRuleValue());
@@ -159,6 +168,17 @@ public class PayServiceImpl implements PayService {
 						}
 					}
 				}
+				
+				/**
+				 * 支付成功后 获得一次抽奖机会
+				 * */
+				
+				WechatRollNumber number = new WechatRollNumber();
+				number.setNumberCount(1);
+				number.setNumberFrom("支付获得,订单号 ：" + params.get("out_trade_no").toString());
+				number.setNumberUserid(order.getOrderUserid());
+				numberdao.insert(number);
+				
 				
 				return createWechatPayCallbackXml("SUCCESS", "OK");
 				//return "SUCCESS";

@@ -174,3 +174,7 @@ hr {
 .modular-title{
 	display: inline-block;
 }
+
+.bar:after{
+	background-color: transparent;
+}

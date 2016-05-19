@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ftc.wechat.roll.dao.WechatRollResultDao" >
+  <resultMap id="BaseResultMap" type="com.ftc.wechat.roll.pojo.WechatRollResult" >
+    <id column="res_id" property="resId" jdbcType="INTEGER" />
+    <result column="res_date" property="resDate" jdbcType="VARCHAR" />
+    <result column="res_productname" property="resProductname" jdbcType="VARCHAR" />
+    <result column="res_userid" property="resUserid" jdbcType="INTEGER" />
+    <result column="res_orderid" property="resOrderid" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    res_id, res_date, res_productname, res_userid, res_orderid
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from wechat_roll_result
+    where res_id = #{resId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from wechat_roll_result
+    where res_id = #{resId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.ftc.wechat.roll.pojo.WechatRollResult" >
+    insert into wechat_roll_result (res_id, res_date, res_productname, 
+      res_userid, res_orderid)
+    values (#{resId,jdbcType=INTEGER}, #{resDate,jdbcType=VARCHAR}, #{resProductname,jdbcType=VARCHAR}, 
+      #{resUserid,jdbcType=INTEGER}, #{resOrderid,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ftc.wechat.roll.pojo.WechatRollResult" >
+    insert into wechat_roll_result
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="resId != null" >
+        res_id,
+      </if>
+      <if test="resDate != null" >
+        res_date,
+      </if>
+      <if test="resProductname != null" >
+        res_productname,
+      </if>
+      <if test="resUserid != null" >
+        res_userid,
+      </if>
+      <if test="resOrderid != null" >
+        res_orderid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="resId != null" >
+        #{resId,jdbcType=INTEGER},
+      </if>
+      <if test="resDate != null" >
+        #{resDate,jdbcType=VARCHAR},
+      </if>
+      <if test="resProductname != null" >
+        #{resProductname,jdbcType=VARCHAR},
+      </if>
+      <if test="resUserid != null" >
+        #{resUserid,jdbcType=INTEGER},
+      </if>
+      <if test="resOrderid != null" >
+        #{resOrderid,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ftc.wechat.roll.pojo.WechatRollResult" >
+    update wechat_roll_result
+    <set >
+      <if test="resDate != null" >
+        res_date = #{resDate,jdbcType=VARCHAR},
+      </if>
+      <if test="resProductname != null" >
+        res_productname = #{resProductname,jdbcType=VARCHAR},
+      </if>
+      <if test="resUserid != null" >
+        res_userid = #{resUserid,jdbcType=INTEGER},
+      </if>
+      <if test="resOrderid != null" >
+        res_orderid = #{resOrderid,jdbcType=INTEGER},
+      </if>
+    </set>
+    where res_id = #{resId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ftc.wechat.roll.pojo.WechatRollResult" >
+    update wechat_roll_result
+    set res_date = #{resDate,jdbcType=VARCHAR},
+      res_productname = #{resProductname,jdbcType=VARCHAR},
+      res_userid = #{resUserid,jdbcType=INTEGER},
+      res_orderid = #{resOrderid,jdbcType=INTEGER}
+    where res_id = #{resId,jdbcType=INTEGER}
+  </update>
+</mapper>

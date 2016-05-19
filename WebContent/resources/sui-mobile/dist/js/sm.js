@@ -1559,7 +1559,7 @@ Device/OS Detection
         if (isModal) {
             modal.show();
             modal.css({
-                marginTop: - Math.round(modal.outerHeight() / 2) + 'px'
+                marginTop: '-200px'
             });
         }
         if (isToast) {

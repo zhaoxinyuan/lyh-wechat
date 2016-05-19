@@ -1,4 +1,4 @@
-$(function () {
+﻿$(function () {
 	myRouter.init();
 });
 
@@ -13,12 +13,20 @@ var myRouter = {
 		if(productid){
 			var productPanle = myRouter.openProduct(productid);
 			new productMaster(productid);
-			$.router.load('#' + 'page_product_' + productid,true);
+			$.router.load('#' + 'page_product_' + UUID,true);
 		}
 	},
-	openProduct : function(productid){
-		$('.page-group').append('<div class="page" id="page_product_' + productid + '">' + 
+	openProduct : function(productid,UUID){
+		$('.page-group').append('<div class="page" id="page_product_' + UUID + '">' + 
+									'<header class="bar bar-nav top-bar">' + 
+										'<a class="icon icon-left pull-left product-button-back back"></a>' + 
+										'<a class="icon icon-home pull-right product-button-index"></a>' + 
+									'</header>' + 	
 									'<div class="product">' + 
+										'<div class="product-button-top">' + 
+											'<div class="product-button-back product-button-back-top back"><i class="fa fa-angle-left"></i></div>' +
+											'<div class="product-button-index product-button-home"><i class="fa fa-home"></i></div>' + 
+										'</div>' + 
 										'<div class="wrapper" id="wrapper_info_' + productid + '">' + 
 											'<div class="scroller">' +
 												'<div class="swiper-container swiper-container-product" data-space-between="10">' + 
@@ -27,10 +35,10 @@ var myRouter = {
 												'</div>' + 
 												'<div class="product-info hide">' + 
 													'<div class="product-info-name"></div>' + 
-													'<div class="product-info-title" >市场价</div>' +
-													'<div class="product-info-mallprice" ></div>' + 
 													'<div class="product-info-title">抢购价</div>' +
 													'<div class="product-info-price"></div>' + 
+													'<div class="product-info-title" >市场价</div>' +
+													'<div class="product-info-mallprice" ></div>' + 
 													'<div class="product-info-title">物流费</div>' + 
 													'<div class="product-info-expressprice"></div>' + 
 													'<div class="product-info-title">服务</div>' +
@@ -139,7 +147,7 @@ var myRouter = {
 							'</div>'	
 		);
 		
-		return 'page_product_' + productid;
+		return 'page_product_' + UUID;
 	},
 	openPointsmall : function(){
 		mall.init();

@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ftc.wechat.pay.dao.WechatPayDao" >
+  <resultMap id="BaseResultMap" type="com.ftc.wechat.pay.pojo.WechatPay" >
+    <id column="pay_id" property="payId" jdbcType="INTEGER" />
+    <result column="pay_orderid" property="payOrderid" jdbcType="INTEGER" />
+    <result column="pay_orderno" property="payOrderno" jdbcType="VARCHAR" />
+    <result column="pay_platform" property="payPlatform" jdbcType="INTEGER" />
+    <result column="pay_amount" property="payAmount" jdbcType="DOUBLE" />
+    <result column="pay_date" property="payDate" jdbcType="VARCHAR" />
+    <result column="pay_platform_tradeno" property="payPlatformTradeno" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    pay_id, pay_orderid, pay_orderno, pay_platform, pay_amount, pay_date, pay_platform_tradeno
+  </sql>
+  
+  <select id="selectByOrderNo" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from wechat_pay
+    where pay_orderno = #{pay_orderno,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from wechat_pay
+    where pay_id = #{payId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from wechat_pay
+    where pay_id = #{payId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.ftc.wechat.pay.pojo.WechatPay" >
+    insert into wechat_pay (pay_id, pay_orderid, pay_orderno, 
+      pay_platform, pay_amount, pay_date, 
+      pay_platform_tradeno)
+    values (#{payId,jdbcType=INTEGER}, #{payOrderid,jdbcType=INTEGER}, #{payOrderno,jdbcType=VARCHAR}, 
+      #{payPlatform,jdbcType=INTEGER}, #{payAmount,jdbcType=DOUBLE}, #{payDate,jdbcType=VARCHAR}, 
+      #{payPlatformTradeno,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ftc.wechat.pay.pojo.WechatPay" >
+    insert into wechat_pay
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="payId != null" >
+        pay_id,
+      </if>
+      <if test="payOrderid != null" >
+        pay_orderid,
+      </if>
+      <if test="payOrderno != null" >
+        pay_orderno,
+      </if>
+      <if test="payPlatform != null" >
+        pay_platform,
+      </if>
+      <if test="payAmount != null" >
+        pay_amount,
+      </if>
+      <if test="payDate != null" >
+        pay_date,
+      </if>
+      <if test="payPlatformTradeno != null" >
+        pay_platform_tradeno,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="payId != null" >
+        #{payId,jdbcType=INTEGER},
+      </if>
+      <if test="payOrderid != null" >
+        #{payOrderid,jdbcType=INTEGER},
+      </if>
+      <if test="payOrderno != null" >
+        #{payOrderno,jdbcType=VARCHAR},
+      </if>
+      <if test="payPlatform != null" >
+        #{payPlatform,jdbcType=INTEGER},
+      </if>
+      <if test="payAmount != null" >
+        #{payAmount,jdbcType=DOUBLE},
+      </if>
+      <if test="payDate != null" >
+        #{payDate,jdbcType=VARCHAR},
+      </if>
+      <if test="payPlatformTradeno != null" >
+        #{payPlatformTradeno,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ftc.wechat.pay.pojo.WechatPay" >
+    update wechat_pay
+    <set >
+      <if test="payOrderid != null" >
+        pay_orderid = #{payOrderid,jdbcType=INTEGER},
+      </if>
+      <if test="payOrderno != null" >
+        pay_orderno = #{payOrderno,jdbcType=VARCHAR},
+      </if>
+      <if test="payPlatform != null" >
+        pay_platform = #{payPlatform,jdbcType=INTEGER},
+      </if>
+      <if test="payAmount != null" >
+        pay_amount = #{payAmount,jdbcType=DOUBLE},
+      </if>
+      <if test="payDate != null" >
+        pay_date = #{payDate,jdbcType=VARCHAR},
+      </if>
+      <if test="payPlatformTradeno != null" >
+        pay_platform_tradeno = #{payPlatformTradeno,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where pay_id = #{payId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ftc.wechat.pay.pojo.WechatPay" >
+    update wechat_pay
+    set pay_orderid = #{payOrderid,jdbcType=INTEGER},
+      pay_orderno = #{payOrderno,jdbcType=VARCHAR},
+      pay_platform = #{payPlatform,jdbcType=INTEGER},
+      pay_amount = #{payAmount,jdbcType=DOUBLE},
+      pay_date = #{payDate,jdbcType=VARCHAR},
+      pay_platform_tradeno = #{payPlatformTradeno,jdbcType=VARCHAR}
+    where pay_id = #{payId,jdbcType=INTEGER}
+  </update>
+</mapper>

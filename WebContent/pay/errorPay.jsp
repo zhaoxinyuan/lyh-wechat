@@ -42,6 +42,7 @@ $(function () {
 </script>
 <title>零元汇</title>
 </head>
+<body>
 	<header class="bar bar-nav">
 		<h1 class="title">支付失败</h1>
 	</header>
@@ -69,8 +70,6 @@ $(function () {
 		</div>
 	</div>
 </head>
-<body>
-
 </body>
 </html>
 

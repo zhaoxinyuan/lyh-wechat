@@ -63,6 +63,12 @@
 	AND c.status_code = 'status_04'
   </select>
   
+  
+  <select id="getLastOrder" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+  	SELECT * FROM wechat_order
+	WHERE order_userid = #{orderUserid,jdbcType=INTEGER}
+	LIMIT 1
+  </select>
     <select id="selectSerial" resultMap="serialResultMap" >
     select 
     (count(1) + 1) as serial

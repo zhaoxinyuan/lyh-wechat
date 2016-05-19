@@ -48,7 +48,7 @@
   			</div>
   		</div>
   		<div class="content-block">
-			<p<button class="button button-big button-round pay-button">支付</button></p>
+			<p><button class="button button-big button-round pay-button">支付</button></p>
 		</div>
 	</div>
 	

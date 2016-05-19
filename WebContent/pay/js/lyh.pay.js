@@ -77,7 +77,7 @@ var pay = {
 		},
 		createPlatform : function(item){
 			return '<li class="item-content pay-platform">' + 
-						'<div class="item-media"><img src="' + server.basepath + 'pay/img/' + item.platformName + '.png" style="width: 31px;"/></div>' +
+						'<div class="item-media"><img src="' + server.basepath + 'pay/img/' + item.platformCode + '.png" style="width: 31px;"/></div>' +
 						'<div class="item-inner">' + 
 							'<div class="item-title">' + item.platformName + '</div>' + 
 							'<div class="item-after"><input class="pay-platform-radio" name="platform" type="radio" value="' + item.platformPayurl + '"/></div>' + 

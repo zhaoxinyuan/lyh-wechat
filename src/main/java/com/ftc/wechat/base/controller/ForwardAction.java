@@ -55,7 +55,7 @@ public class ForwardAction {
 				
 				WechatUser user = userservice.findUserByWechatId(wechatId);
 				if(user == null){
-					user = getSignUserInfo(wechatId,new WechatUser());
+					user = getSignUserInfo(wechatId,new WechatUser(),resp);
 					if(user != null){
 						user.setUserWechatid(wechatId);
 						userservice.saveUser(user);
@@ -113,7 +113,7 @@ public class ForwardAction {
 	}
 
 	@SuppressWarnings("unchecked")
-	public WechatUser getSignUserInfo(String wechatid, WechatUser user) {
+	public WechatUser getSignUserInfo(String wechatid, WechatUser user,HttpServletResponse resp) {
 		AccessToken at = WechatUtil.getAccessToken(WechatConfig.appId,
 				WechatConfig.appSecret);
 		log.error("AccessToken:{} ", at.getAccess_getDate());
@@ -154,6 +154,15 @@ public class ForwardAction {
 			System.out.println(rsMap);
 			
 			log.error("userinfo:{} ", rsMap);
+			
+			if(rsMap.get("subscribe") == null){
+				try {
+					resp.sendRedirect("https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx80bec67da02b4517&redirect_uri=http%3A%2F%2Fwww.lyhui.cn%2FWeChat%2FforwardAction%2FforwardRequest%3Fpath%3Dhome%2Findex.jsp&response_type=code&scope=snsapi_userinfo&state=1&connect_redirect=1#wechat_redirect");
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
 			
 			if(rsMap.get("subscribe").toString().equals("1.0")){
 				user.setUserHeadImgUrl((String)rsMap.get("headimgurl"));

@@ -25,4 +25,6 @@ public interface WechatOrderDao {
     WechatOrder selectByOrderNo(String orderNo);
     
     List<WechatOrder> overtimeOrder();
+    
+    WechatOrder getLastOrder(Integer orderUserid);
 }

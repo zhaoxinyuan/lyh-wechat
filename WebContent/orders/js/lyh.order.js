@@ -30,7 +30,7 @@ var orders = {
 				if(res.length){
 					var ordersHtml = '';
 					$.each(res,function(idx,itm){
-						ordersHtml += orders.createOrderInfo(this);
+						ordersHtml += this.orderProduct ? orders.createOrderInfo(this) : '';
 					});
 					$('#' + tab.attr('data-table-id')).append(ordersHtml);
 					$('.order-product').off().on('click',function(){
@@ -178,7 +178,7 @@ var orders = {
 		});
 	}	
 };
-
-wx.ready(function(){
+$(function () {
+//wx.ready(function(){
 	orders.init();
 });

@@ -12,34 +12,7 @@
 <%@ include file="../../common/basic-them.inc"%>
 
 <link href="<%=basePath%>pay/css/lyh.resultPay.css" rel="stylesheet" />
-<script type="text/javascript">
-$(function () {
-	wx.onMenuShareAppMessage({
-	    title: share.sharetitle, 
-	    desc: '零元汇', 
-	    link: share.sharepath, 
-	    imgUrl: share.shareicon,
-	    success: function () { 
-	        //alert('success');
-	    },
-	    cancel: function () { 
-	    	//alert('cancel');
-	    }
-	});
 
-	wx.onMenuShareTimeline({
-	    title: '零元汇',
-	    link: share.sharepath,
-	    imgUrl: share.shareicon,
-	    success: function () { 
-	        // 用户确认分享后执行的回调函数
-	    },
-	    cancel: function () { 
-	        // 用户取消分享后执行的回调函数
-	    }
-	});
-});
-</script>
 <title>零元汇</title>
 </head>
 	<header class="bar bar-nav">
@@ -72,3 +45,44 @@ $(function () {
 </html>
 
 <%@ include file="../../common/basic-script.inc"%>
+<script type="text/javascript">
+$(function () {
+	wx.onMenuShareAppMessage({
+	    title: share.sharetitle, 
+	    desc: '零元汇', 
+	    link: share.sharepath, 
+	    imgUrl: share.shareicon,
+	    success: function () { 
+	        //alert('success');
+	    },
+	    cancel: function () { 
+	    	//alert('cancel');
+	    }
+	});
+
+	wx.onMenuShareTimeline({
+	    title: '零元汇',
+	    link: share.sharepath,
+	    imgUrl: share.shareicon,
+	    success: function () { 
+	        // 用户确认分享后执行的回调函数
+	    },
+	    cancel: function () { 
+	        // 用户取消分享后执行的回调函数
+	    }
+	});
+	
+	 $.modal({
+	      afterText:  '<div><img style="width:100%;" src="<%=basePath%>pay/img/roll.png"></div>',
+	      buttons: [{
+	          text: '放弃 :('	  
+	        },{
+	          text: '马上去抽奖',
+	          bold: true,
+	          onClick: function () {
+	        	  window.location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx80bec67da02b4517&redirect_uri=http%3A%2F%2Fwww.lyhui.cn%2FWeChat%2FforwardAction%2FforwardRequest%3Fpath%3Dlottery%2Findex.html&response_type=code&scope=snsapi_base&state=1#wechat_redirect';
+	          }
+	        }]
+		});
+});
+</script>

@@ -22,6 +22,7 @@
 
 <script src="<%=basePath%>resources/js/util/util.forward.js" type="text/javascript"></script>
 <script src="<%=basePath%>resources/js/util/util.date.js" type="text/javascript"></script>
+<script src="<%=basePath%>resources/js/util/util.uuid.js" type="text/javascript"></script>
 
 
 

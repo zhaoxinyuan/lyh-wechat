@@ -1,4 +1,4 @@
-(function(root, factory) {
+﻿(function(root, factory) {
 	if (typeof define === 'function' && define.amd) {
 		define(['$'], factory);
 	} else if (typeof exports === 'object') { //umd
@@ -101,11 +101,13 @@
 					if ($this.is('img')) {
 						 setTimeout(function(){
 							 $this.attr('src', original);
+							 _this.settings.callback ? _this.settings.callback() : '' ;
 						 }, 500); 
 						
 					} else {
 						setTimeout(function(){
 							$this.css('background-image', "url('" + original + "')");
+							 _this.settings.callback ? _this.settings.callback() : '' ;
 						 }, 500); 
 					}
 					$this.attr('loaded',true);
